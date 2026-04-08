@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4cab22c82a3473a98ad838f90fb159, type: 3}
   m_Name: Item1Type
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: test
+  itemName: Bug
   itemDescription: 
   itemIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  itemCategory: 0
+  itemCategory: 1
   powerupType: 0
   powerAmount: 1
-  isStackable: 0
-  maxStack: 99

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 
 /// <summary>
@@ -16,9 +17,17 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
     [SerializeField] private List<GameObject> inventorySlots = new List<GameObject>();
 
 
-    [Space(10)]
-    [Header("Testing")]
-    [SerializeField] private GameObject itemToAdd;
+    void OnEnable()
+    {
+        ItemPickup.OnItemPickup += (itemData) => AddItemToInventory(itemData);
+    }
+
+    void OnDisable()
+    {
+        ItemPickup.OnItemPickup -= (itemData) => AddItemToInventory(itemData);
+    }
+
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -40,10 +49,7 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
         //we need to get the inventory slots when the game starts
         GetInventorySlots();
 
-        if (itemToAdd != null)
-        {
-            AddItemToInventory(itemToAdd);
-        }
+        
     }
 
     public void GetInventorySlots()
@@ -95,6 +101,15 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
             if (slotBehavior.IsEmpty)
             {
                 slotBehavior.SetCurrentItem(itemToAdd);
+                
+                //set the size pf thje item to fit the slot
+                RectTransform itemRect = itemToAdd.GetComponent<RectTransform>();
+                RectTransform slotRect = inventorySlot.GetComponent<RectTransform>();
+                if (itemRect != null && slotRect != null)  
+                {             
+                    itemRect.sizeDelta = slotRect.sizeDelta;
+                }
+
                 Debug.Log("Added item to inventory slot: " + inventorySlot.name);
                 break;
             }

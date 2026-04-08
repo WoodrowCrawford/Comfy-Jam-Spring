@@ -23,7 +23,7 @@ public class ItemData : ScriptableObject
         Speed,
         Stamina
     }
-
+    
     [Header("Basic Info")]
     [SerializeField] private string itemName;
 

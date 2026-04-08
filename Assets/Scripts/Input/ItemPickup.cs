@@ -3,6 +3,10 @@ using UnityEngine.InputSystem;
 
 public class ItemPickup : MonoBehaviour
 {
+
+    public delegate void ItemPickupEvent(GameObject itemToPickup);
+    public static event ItemPickupEvent OnItemPickup;   
+
     [SerializeField] float pickupDistance = 2f;
     void Update()
     {
@@ -45,6 +49,10 @@ public class ItemPickup : MonoBehaviour
     void PickUp()
     {
         Debug.Log("picked up: " + gameObject.name);
-        Destroy(gameObject);
+
+        //we need to fire an event here that will tell the inventory system to add this item to the inventory
+        OnItemPickup?.Invoke(gameObject);
+        
+        //Destroy(gameObject);
     }
 }
