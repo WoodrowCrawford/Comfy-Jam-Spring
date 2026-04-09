@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5990747632681080923}
   - component: {fileID: 3286429103467564198}
   - component: {fileID: 3680100990256773987}
+  - component: {fileID: 8128521617976377783}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -171,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36919c5ef6b067a41a9bffe083404d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  canMove: 1
   moveSpeed: 10
 --- !u!114 &3680100990256773987
 MonoBehaviour:
@@ -306,3 +308,15 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8128521617976377783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4012460126862006728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dbf5aa7d2424212b8b2cc73747245e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBehavior

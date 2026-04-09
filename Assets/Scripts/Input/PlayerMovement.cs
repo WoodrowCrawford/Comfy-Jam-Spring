@@ -6,7 +6,23 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D myRigidBody;
 
+    [SerializeField] private bool canMove = true;
+
     [SerializeField] float moveSpeed = 10f;
+
+    void OnEnable()
+    {
+        PromptMessageBehavior.OnPromptMessageClicked += DisableMovement;
+        PromptMessageBehavior.OnPromptMessageClosed += EnableMovement;
+    }
+
+    void OnDisable()
+    {
+        PromptMessageBehavior.OnPromptMessageClicked -= DisableMovement;
+        PromptMessageBehavior.OnPromptMessageClosed -= EnableMovement;
+    }
+
+
 
     void Start()
     {
@@ -25,6 +41,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        myRigidBody.linearVelocity = moveInput * moveSpeed;
+        if (canMove)
+        {
+            myRigidBody.linearVelocity = moveInput * moveSpeed;
+        }
+        else
+        {
+            myRigidBody.linearVelocity = Vector2.zero;
+        }
+    }
+
+    void DisableMovement()
+    {
+        canMove = false;
+    }
+
+    void EnableMovement()
+    {
+        canMove = true;
     }
 }
