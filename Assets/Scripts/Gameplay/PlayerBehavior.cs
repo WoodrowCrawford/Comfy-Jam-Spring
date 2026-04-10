@@ -27,8 +27,5 @@ public class PlayerBehavior : MonoBehaviour
     }   
 
 
-    public void Test()
-    {
-        Debug.Log("Dialoigue UI is working");
-    }
+ 
 }

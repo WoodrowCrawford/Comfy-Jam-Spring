@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 
 /// <summary>
@@ -9,8 +10,12 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class ItemBehavior : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+   [Header("Item Data")]
    [SerializeField] private ItemData itemData;
    [SerializeField] private string itemName;
+   [SerializeField] private bool canGoInInventory = true;
+   public UnityEvent OnItemUsed;
+
 
    private Canvas parentCanvas;
    private CanvasGroup canvasGroup;
@@ -22,6 +27,9 @@ public class ItemBehavior : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
    public ItemData ItemData => itemData;
    public string ItemName => itemName;
    public InventorySlot CurrentSlot => currentSlot;
+   public bool CanGoInInventory => canGoInInventory;
+
+   //public UnityEvent OnItemUsed;
 
 
     private void Awake()

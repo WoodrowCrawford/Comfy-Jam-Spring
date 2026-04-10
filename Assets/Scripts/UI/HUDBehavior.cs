@@ -16,11 +16,15 @@ public class HUDBehavior : MonoBehaviour
     void OnEnable()
     {
         inventoryButton.onClick.AddListener(ToggleInventory);
+        DialogueUIBehavior.OnDialogueBoxOpen += HandleDialogueBoxOpen;
+        DialogueUIBehavior.OnDialogueBoxClose += HandleDialogueBoxClose;
     }
 
     void OnDisable()
     {
         inventoryButton.onClick.RemoveListener(ToggleInventory);
+        DialogueUIBehavior.OnDialogueBoxOpen -= HandleDialogueBoxOpen;
+        DialogueUIBehavior.OnDialogueBoxClose -= HandleDialogueBoxClose;
     }
     
 
@@ -33,5 +37,17 @@ public class HUDBehavior : MonoBehaviour
         }
 
         inventoryUI.SetActive(!inventoryUI.activeSelf);
+    }
+
+    public void HandleDialogueBoxOpen()
+    {
+        //disable the inventory button when the dialogue box is open
+        inventoryButton.interactable = false;
+    }
+
+    public void HandleDialogueBoxClose()
+    {
+        //enable the inventory button when the dialogue box is closed
+        inventoryButton.interactable = true;
     }
 }

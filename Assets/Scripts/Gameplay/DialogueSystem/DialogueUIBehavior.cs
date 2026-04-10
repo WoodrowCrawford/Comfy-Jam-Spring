@@ -6,11 +6,14 @@ using UnityEngine.InputSystem;
 
 public class DialogueUIBehavior : MonoBehaviour
 {
-    //Gets a static version of this class (so that other classes can use it)
     public static DialogueUIBehavior instance;
-
     private ResponseHandlerBehavior _responseHandler;
     private TypewritterEffectBehavior _typewritterEffect;
+
+    public delegate void DialogueBoxEvent();
+    public static event DialogueBoxEvent OnDialogueBoxOpen;
+    public static event DialogueBoxEvent OnDialogueBoxClose;
+
 
     [Header("Dialogue Box Settings")]
     [Tooltip("The dialogue box game object that will be enabled and disabled when showing and closing the dialogue box")]
@@ -43,8 +46,6 @@ public class DialogueUIBehavior : MonoBehaviour
     public static bool IsOpen { get; private set; }
 
 
-    [SerializeField] public DialogueObjectBehavior DialogueObject;
-
 
 
     private void Awake()
@@ -66,16 +67,7 @@ public class DialogueUIBehavior : MonoBehaviour
         
     }
 
-    private void Start()
-    { 
-       
-        //Closes the dialogue box on Startup
-        CloseDialogueBox();
-
-        //play the dialogue for testing purposes
-        ShowDialogue(DialogueObject);
-    }
-
+    
 
 
 
@@ -110,8 +102,13 @@ public class DialogueUIBehavior : MonoBehaviour
         //Enables the dialogue box game object
         _dialogueBox.SetActive(true);
 
+        //Invokes the OnDialogueBoxOpen event
+        OnDialogueBoxOpen?.Invoke();
+
         //Starts the step through dialogue coroutine
         StartCoroutine(StepThroughDialogue(dialogueObject));
+
+        
     }
 
 
@@ -145,8 +142,10 @@ public class DialogueUIBehavior : MonoBehaviour
         for(int i =  0; i < dialogueObject.Dialogue.Length; i++)
         {
            
-
             string dialogue = dialogueObject.Dialogue[i];
+            //Replaces the {playerName} tag with the player's name
+            dialogue = dialogue.Replace("{playerName}", FindAnyObjectByType<PlayerBehavior>().PlayerName);
+    
             yield return _typewritterEffect.Run(dialogue, _textLabel);
 
             if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses)
@@ -179,8 +178,7 @@ public class DialogueUIBehavior : MonoBehaviour
     //A function that closes the dialogue box
     public void CloseDialogueBox()
     {
-        //Resumes time and hides the cursor
-        Cursor.visible = false;
+        
         Time.timeScale = 1.0f;
 
         //Sets is open to false
@@ -193,5 +191,8 @@ public class DialogueUIBehavior : MonoBehaviour
 
         //Sets the text label's text to be empty
         _textLabel.text = string.Empty;
+
+        //Invokes the OnDialogueBoxClose event
+        OnDialogueBoxClose?.Invoke();
     } 
 }

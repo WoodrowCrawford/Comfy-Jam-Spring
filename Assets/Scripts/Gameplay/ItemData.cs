@@ -32,6 +32,7 @@ public class ItemData : ScriptableObject
 
     
     [SerializeField] private Sprite itemIcon;
+   
 
     [Space(10)]
     [Header("Item Type")]
@@ -49,7 +50,7 @@ public class ItemData : ScriptableObject
     public ItemCategory Category => itemCategory;
     public PowerupType Powerup => powerupType;
     public int PowerAmount => powerAmount;
-   
+
 
     //A function that uses the item based on the item category
     public void UseItem()

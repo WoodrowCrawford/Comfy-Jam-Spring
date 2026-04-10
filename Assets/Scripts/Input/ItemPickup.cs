@@ -10,7 +10,7 @@ public class ItemPickup : MonoBehaviour
     [SerializeField] float pickupDistance = 2f;
     void Update()
     {
-        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
+        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame && !DialogueUIBehavior.IsOpen)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Pointer.current.position.ReadValue());
 
@@ -49,10 +49,19 @@ public class ItemPickup : MonoBehaviour
     void PickUp()
     {
         Debug.Log("picked up: " + gameObject.name);
-
-        //we need to fire an event here that will tell the inventory system to add this item to the inventory
-        OnItemPickup?.Invoke(gameObject);
         
+        //check if the item can be picked up
+        if(gameObject.GetComponent<ItemBehavior>().CanGoInInventory)
+        {
+            OnItemPickup?.Invoke(gameObject);
+        }
+
+        //if not then its an interactable object so call the event
+        {
+            gameObject.GetComponent<ItemBehavior>().OnItemUsed.Invoke();
+        }
+        
+           
         //Destroy(gameObject);
     }
 }

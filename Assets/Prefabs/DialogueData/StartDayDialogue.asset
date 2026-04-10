@@ -10,14 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
-  m_Name: TestDialogue
+  m_Name: StartDayDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
   _dialogue:
-  - Hi! this is the dialogue in action!
-  - You can put whatever you want in here!
-  - You can even have responses!
-  _responses:
-  - _responseText: Is that so?
-    _dialogueObject: {fileID: 11400000, guid: 3a19661b2974642ecb252d215fd49bfd, type: 2}
-  - _responseText: Cool!
-    _dialogueObject: {fileID: 11400000, guid: dc1f0d3b54bcc4256b1c7990872965c7, type: 2}
+  - 'Hey {playerName}! '
+  - 'I need some items please, you shoud be able to find them in the forest. '
+  - Well, off you go!
+  _responses: []
