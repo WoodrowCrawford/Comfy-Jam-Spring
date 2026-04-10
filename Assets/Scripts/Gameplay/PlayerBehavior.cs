@@ -25,4 +25,10 @@ public class PlayerBehavior : MonoBehaviour
     {
         playerName = name;
     }   
+
+
+    public void Test()
+    {
+        Debug.Log("Dialoigue UI is working");
+    }
 }
