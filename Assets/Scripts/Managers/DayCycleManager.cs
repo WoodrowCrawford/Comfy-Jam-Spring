@@ -6,9 +6,9 @@ using UnityEngine;
 /// </summary>
 public class DayCycleManager : MonoBehaviour
 {
-    //things the day cycle manager will manage:
-    //1. The current day number
-    //2. The current tasks for the day
+   
+    public delegate void DayPhaseChangeEventHandler();
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowInfoCard;
 
     public enum DayPhase
     {
@@ -18,11 +18,13 @@ public class DayCycleManager : MonoBehaviour
     }
   
     [SerializeField] private DayPhase currentDayPhase;
-    private DayPhase previousDayPhase;
+    
 
 
     [SerializeField] private int currentDay = 1;
     
+
+    private DayPhase previousDayPhase;
 
 
     [Header("Dialogue")]
@@ -82,12 +84,8 @@ public class DayCycleManager : MonoBehaviour
 
     public IEnumerator StartDay()
     {
-        //set the current phase to start
-        currentDayPhase = DayPhase.Start;
-
-        //play the start day dialogue
-        DialogueUIBehavior.instance.ShowDialogue(startDayDialogue);
-
+        //this only fires  on the first day if it hasnt been shown yet
+        OnDayPhaseWantsToShowInfoCard?.Invoke();
 
         yield break;
     }

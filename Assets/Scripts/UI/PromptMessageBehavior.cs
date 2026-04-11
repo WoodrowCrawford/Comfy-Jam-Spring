@@ -74,6 +74,9 @@ public class PromptMessageBehavior : MonoBehaviour
 
             //fire an event here that will tell the player behavior to set the player name to the name that was submitted in the input field
             OnNameCreated?.Invoke(nameInputField.GetComponent<TMP_InputField>().text);
+
+            //after the name is submitted, we can hide the prompt message UI
+            gameObject.SetActive(false);
         }
     }
 }

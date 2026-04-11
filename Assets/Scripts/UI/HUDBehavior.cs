@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,10 @@ public class HUDBehavior : MonoBehaviour
     [Header("HUD References")]
     [SerializeField] private GameObject inventoryUI;
     [SerializeField] private Button inventoryButton;
+    [SerializeField] private GameObject infoCard;
 
+    [Header("Bools")]
+    [SerializeField] private bool hasShownIntroCard = false;
 
 
     void OnEnable()
@@ -18,6 +22,8 @@ public class HUDBehavior : MonoBehaviour
         inventoryButton.onClick.AddListener(ToggleInventory);
         DialogueUIBehavior.OnDialogueBoxOpen += HandleDialogueBoxOpen;
         DialogueUIBehavior.OnDialogueBoxClose += HandleDialogueBoxClose;
+
+        DayCycleManager.OnDayPhaseWantsToShowInfoCard += ShowInfoCard;
     }
 
     void OnDisable()
@@ -25,6 +31,8 @@ public class HUDBehavior : MonoBehaviour
         inventoryButton.onClick.RemoveListener(ToggleInventory);
         DialogueUIBehavior.OnDialogueBoxOpen -= HandleDialogueBoxOpen;
         DialogueUIBehavior.OnDialogueBoxClose -= HandleDialogueBoxClose;
+
+        DayCycleManager.OnDayPhaseWantsToShowInfoCard -= ShowInfoCard;
     }
     
 
@@ -49,5 +57,16 @@ public class HUDBehavior : MonoBehaviour
     {
         //enable the inventory button when the dialogue box is closed
         inventoryButton.interactable = true;
+    }
+
+    public void ShowInfoCard()
+    {
+        if (infoCard == null)
+        {
+            return;
+        }
+
+        infoCard.SetActive(true);
+        hasShownIntroCard = true;
     }
 }
