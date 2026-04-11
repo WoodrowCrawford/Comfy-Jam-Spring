@@ -16,4 +16,10 @@ MonoBehaviour:
   - 'Hey {playerName}! '
   - 'I need some items please, you shoud be able to find them in the forest. '
   - Well, off you go!
-  _responses: []
+  _responses:
+  - _responseText: yes
+    _dialogueObject: {fileID: 0}
+  - _responseText: no
+    _dialogueObject: {fileID: 0}
+  - _responseText: why
+    _dialogueObject: {fileID: 0}

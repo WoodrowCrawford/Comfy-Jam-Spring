@@ -47,6 +47,7 @@ public class DialogueUIBehavior : MonoBehaviour
 
 
 
+    public DialogueObjectBehavior testDialogueObject;
 
     private void Awake()
     {
@@ -67,7 +68,12 @@ public class DialogueUIBehavior : MonoBehaviour
         
     }
 
-    
+
+    void Start()
+    {
+        ShowDialogue(testDialogueObject);
+    }
+
 
 
 
