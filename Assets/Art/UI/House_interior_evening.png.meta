@@ -116,9 +116,9 @@ TextureImporter:
       name: House_interior_evening_0
       rect:
         serializedVersion: 2
-        x: 159
+        x: 0
         y: 0
-        width: 1604
+        width: 1920
         height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}

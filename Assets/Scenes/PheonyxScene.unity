@@ -183,7 +183,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 6534564831102106899, guid: 524fa7d7012c34fd190c9eeb15971b1d, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -520,7 +520,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -6580467855138769401, guid: f7224a65a95a6407ba8ad346ad2e44fc, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1150,7 +1150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
   m_Padding:
-    m_Left: -422
+    m_Left: -373
     m_Right: 0
     m_Top: -403
     m_Bottom: 0
