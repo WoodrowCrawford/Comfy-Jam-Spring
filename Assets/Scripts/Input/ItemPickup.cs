@@ -5,7 +5,9 @@ public class ItemPickup : MonoBehaviour
 {
 
     public delegate void ItemPickupEvent(GameObject itemToPickup);
+    public delegate void ItemPickupAnimationEvent();
     public static event ItemPickupEvent OnItemPickup;   
+    public static event ItemPickupAnimationEvent OnItemPickupAnimation;
 
     [SerializeField] float pickupDistance = 2f;
     void Update()
@@ -20,7 +22,14 @@ public class ItemPickup : MonoBehaviour
             {
                 CheckDistanceAndPickUp();
             }
+            
         }
+
+        else if(Keyboard.current.eKey.wasPressedThisFrame && !DialogueUIBehavior.IsOpen)
+        {
+            
+            CheckDistanceAndPickUp();
+        }  
     }
 
     void CheckDistanceAndPickUp()
@@ -53,6 +62,7 @@ public class ItemPickup : MonoBehaviour
         //check if the item can be picked up
         if(gameObject.GetComponent<ItemBehavior>().CanGoInInventory)
         {
+            OnItemPickupAnimation?.Invoke();
             OnItemPickup?.Invoke(gameObject);
         }
 
