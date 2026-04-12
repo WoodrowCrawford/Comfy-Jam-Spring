@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 491e70e1db4b4477e80cf278edc43706
+guid: c25c6621baf58428c96177cd187d11a2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 314725746338704250
-    second: dialogue_box_0
+      213: 2725217190876209870
+    second: av_lil_boy_evening2_0
+  - first:
+      213: -4872107087148001431
+    second: av_lil_boy_evening2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogue_box_0
+      name: av_lil_boy_evening2_0
       rect:
         serializedVersion: 2
-        x: 164
-        y: 0
-        width: 1613
-        height: 499
+        x: 234
+        y: 349
+        width: 318
+        height: 469
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a7b203816612e5400800000000000000
-      internalID: 314725746338704250
+      spriteID: ec2e6f5a89ae1d520800000000000000
+      internalID: 2725217190876209870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: av_lil_boy_evening2_1
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 670
+        width: 110
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96751e2fa6cc26cb0800000000000000
+      internalID: -4872107087148001431
       vertices: []
       indices: 
       edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dialogue_box_0: 314725746338704250
+      av_lil_boy_evening2_0: 2725217190876209870
+      av_lil_boy_evening2_1: -4872107087148001431
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

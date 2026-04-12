@@ -9,6 +9,18 @@ public class DayCycleManager : MonoBehaviour
    
     public delegate void DayPhaseChangeEventHandler();
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowInfoCard;
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsInitializePlayerName;
+
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowHouseSceneDayTime;
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsToHideHouseSceneDayTime;
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowHouseSceneNightTime;
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsToHideHouseSceneNightTime;
+    
+
+
+    [Header("Dialogue")]
+    [SerializeField] private DialogueObjectBehavior startDayDialogue;
+    [SerializeField] private DialogueObjectBehavior endDayDialogue;
 
     public enum DayPhase
     {
@@ -22,13 +34,13 @@ public class DayCycleManager : MonoBehaviour
 
 
     [SerializeField] private int currentDay = 1;
+
+    public static int CurrentDay { get { return FindAnyObjectByType<DayCycleManager>().currentDay; } }
     
 
     private DayPhase previousDayPhase;
 
 
-    [Header("Dialogue")]
-    [SerializeField] private DialogueObjectBehavior startDayDialogue;
 
     void Start()
     {
@@ -84,39 +96,69 @@ public class DayCycleManager : MonoBehaviour
 
     public IEnumerator StartDay()
     {
-        //this only fires  on the first day if it hasnt been shown yet
-        OnDayPhaseWantsToShowInfoCard?.Invoke();
+        if(HUDBehavior.hasShownIntroCard == false)
+        {
+            //if we havent shown the intro card yet, we want to show it
+            OnDayPhaseWantsToShowInfoCard?.Invoke();   
+        }
 
-        yield break;
+        if(FindAnyObjectByType<PlayerBehavior>().PlayerName == string.Empty)
+        {
+            //if the player hasnt created their name yet, we want to show the prompt message to create their name
+            OnDayPhaseWantsInitializePlayerName?.Invoke();
+        }
+
+       
+        //wait until the player has created their name before we can show the dialogue
+        yield return new WaitUntil(() => FindAnyObjectByType<PlayerBehavior>().PlayerName != string.Empty);
+
+
+        //fire an event to tell the hud to show the house scene room
+        OnDayPhaseWantsToShowHouseSceneDayTime?.Invoke();
+        
+        //wait a few
+        yield return new WaitForSeconds(1f);
+
+        //then we show the dialogue for the day
+        DialogueUIBehavior.instance.ShowDialogue(startDayDialogue);
+
+        //after the dialogue is done we can hide the house scene room
+        yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+
+        yield return StartCoroutine(ExploreForest());
     }
 
 
     //this is the main gameplay loop where the player can explore the forest
     public IEnumerator ExploreForest()
     {
-        Debug.Log("Exploring the forest...");
-        yield return new WaitForSeconds(1f); // Simulate some delay for exploring the forest
-        Debug.Log("You can explore the forest and find various items, but be careful of the dangers lurking around!");
+        //hide the house scene room if its still active
+        OnDayPhaseWantsToHideHouseSceneDayTime?.Invoke();
+        
+        //here the player can explore the forest.
 
-        // Here we can have the player explore the forest and find various items, but also encounter dangers such as wild animals or traps.
-
-
-        //once the player is ready to end the day we cn move to the next phase of the game
+        //when they want to end the day
 
         yield break;
     }
 
     public IEnumerator EndDay()
     {
-        Debug.Log("Ending day cycle...");
-        yield return new WaitForSeconds(1f); // Simulate some delay for ending the day
-        Debug.Log("You can now rest and prepare for the next day.");
+        //show the evening house scene
+        OnDayPhaseWantsToShowHouseSceneNightTime?.Invoke();
 
-        // Here we can have the player rest and prepare for the next day, maybe by crafting items or upgrading their equipment.
+        //wait a few seconds
+        yield return new WaitForSeconds(1f);
 
+        //then we can show the end of day dialogue, which we will need to create
+        DialogueUIBehavior.instance.ShowDialogue(endDayDialogue);
 
-        //then we start the next day cycle again
+        //at the end increase the day count and reset the day phase to start
+        yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+        currentDay++;
 
-        yield break;
+        //Start the loop again!
+        yield return StartCoroutine(StartDay());
     }
 }

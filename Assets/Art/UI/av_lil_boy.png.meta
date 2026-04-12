@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 491e70e1db4b4477e80cf278edc43706
+guid: f7224a65a95a6407ba8ad346ad2e44fc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 314725746338704250
-    second: dialogue_box_0
+      213: -6580467855138769401
+    second: av_lil_boy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogue_box_0
+      name: av_lil_boy_0
       rect:
         serializedVersion: 2
-        x: 164
-        y: 0
-        width: 1613
-        height: 499
+        x: 234
+        y: 349
+        width: 318
+        height: 469
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a7b203816612e5400800000000000000
-      internalID: 314725746338704250
+      spriteID: 706b39eb95b7da4a0800000000000000
+      internalID: -6580467855138769401
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dialogue_box_0: 314725746338704250
+      av_lil_boy_0: -6580467855138769401
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

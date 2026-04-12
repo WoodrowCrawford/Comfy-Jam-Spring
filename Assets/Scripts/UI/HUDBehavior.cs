@@ -12,10 +12,15 @@ public class HUDBehavior : MonoBehaviour
     [SerializeField] private GameObject inventoryUI;
     [SerializeField] private Button inventoryButton;
     [SerializeField] private GameObject infoCard;
+    [SerializeField] private GameObject promptMessage;
+
+    [Header("House Scene References")]
+    [SerializeField] private GameObject houseScene;
+    [SerializeField] private Sprite houseSceneDay;
+    [SerializeField] private Sprite houseSceneNight;
 
     [Header("Bools")]
-    [SerializeField] private bool hasShownIntroCard = false;
-
+    public static bool hasShownIntroCard = false;
 
     void OnEnable()
     {
@@ -24,6 +29,13 @@ public class HUDBehavior : MonoBehaviour
         DialogueUIBehavior.OnDialogueBoxClose += HandleDialogueBoxClose;
 
         DayCycleManager.OnDayPhaseWantsToShowInfoCard += ShowInfoCard;
+
+        DayCycleManager.OnDayPhaseWantsInitializePlayerName += ShowPromptMessage;
+        DayCycleManager.OnDayPhaseWantsToShowHouseSceneDayTime += ShowHouseSceneDayTime;
+        DayCycleManager.OnDayPhaseWantsToHideHouseSceneDayTime += HideHouseSceneDayTime;
+
+        DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime += ShowHouseSceneNightTime;
+        DayCycleManager.OnDayPhaseWantsToHideHouseSceneNightTime += HideHouseSceneNightTime;
     }
 
     void OnDisable()
@@ -33,6 +45,13 @@ public class HUDBehavior : MonoBehaviour
         DialogueUIBehavior.OnDialogueBoxClose -= HandleDialogueBoxClose;
 
         DayCycleManager.OnDayPhaseWantsToShowInfoCard -= ShowInfoCard;
+        DayCycleManager.OnDayPhaseWantsToShowHouseSceneDayTime -= ShowHouseSceneDayTime;
+        DayCycleManager.OnDayPhaseWantsToHideHouseSceneDayTime -= HideHouseSceneDayTime;
+
+         DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime -= ShowHouseSceneNightTime;
+         DayCycleManager.OnDayPhaseWantsToHideHouseSceneNightTime -= HideHouseSceneNightTime;
+         DayCycleManager.OnDayPhaseWantsInitializePlayerName -= ShowPromptMessage;
+        DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime -= ShowHouseSceneNightTime;
     }
     
 
@@ -69,4 +88,47 @@ public class HUDBehavior : MonoBehaviour
         infoCard.SetActive(true);
         hasShownIntroCard = true;
     }
+
+    public void HideInfoCard()
+    {
+        if (infoCard == null)
+        {
+            return;
+        }
+
+        infoCard.SetActive(false);
+    }
+
+    public void ShowPromptMessage()
+    {
+        promptMessage.SetActive(true);
+    }
+
+    public void HidePromptMessage()
+    {
+        promptMessage.SetActive(false);
+    }
+
+    public void ShowHouseSceneDayTime()
+    {
+        houseScene.GetComponent<Image>().sprite = houseSceneDay;
+        houseScene.SetActive(true);
+    }
+
+    public void HideHouseSceneDayTime()
+    {
+        houseScene.SetActive(false);
+    }
+
+    public void ShowHouseSceneNightTime()
+    {
+        houseScene.GetComponent<Image>().sprite = houseSceneNight;
+        houseScene.SetActive(true);
+    }
+
+    public void HideHouseSceneNightTime()
+    {
+        houseScene.SetActive(false);
+    }
+
 }

@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: StartDayDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
   _dialogue:
-  - 'Hey {playerName}! '
-  - 'I need some items please, you shoud be able to find them in the forest. '
-  - Well, off you go!
+  - text: Hello, it is currently day {currentDay}.
+    speakerSpriteA: {fileID: 8377351832699850380, guid: 90a3d527fa4bf48e7a3c1ff9da2349b4, type: 3}
+    speakerSpriteB: {fileID: 6534564831102106899, guid: 524fa7d7012c34fd190c9eeb15971b1d, type: 3}
+  - text: more words more words more words
+    speakerSpriteA: {fileID: -6580467855138769401, guid: f7224a65a95a6407ba8ad346ad2e44fc, type: 3}
+    speakerSpriteB: {fileID: -6580467855138769401, guid: f7224a65a95a6407ba8ad346ad2e44fc, type: 3}
   _responses:
   - _responseText: yes
     _dialogueObject: {fileID: 0}

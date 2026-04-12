@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 491e70e1db4b4477e80cf278edc43706
+guid: cda14d703f44b4000971895e2ae22b6b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 314725746338704250
-    second: dialogue_box_0
+      213: -7437861679674463006
+    second: av_gramp_chest_evening_0
+  - first:
+      213: 403430259015886451
+    second: av_gramp_chest_evening_1
+  - first:
+      213: 7180546712669990226
+    second: av_gramp_chest_evening_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogue_box_0
+      name: av_gramp_chest_evening_0
       rect:
         serializedVersion: 2
-        x: 164
-        y: 0
-        width: 1613
-        height: 499
+        x: 993
+        y: 525
+        width: 31
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a7b203816612e5400800000000000000
-      internalID: 314725746338704250
+      spriteID: 2ec6386b53867c890800000000000000
+      internalID: -7437861679674463006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: av_gramp_chest_evening_1
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 237
+        width: 254
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3762940eea5499500800000000000000
+      internalID: 403430259015886451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: av_gramp_chest_evening_2
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 233
+        width: 369
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25d2bc5e03d66a360800000000000000
+      internalID: 7180546712669990226
       vertices: []
       indices: 
       edges: []
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dialogue_box_0: 314725746338704250
+      av_gramp_chest_evening_0: -7437861679674463006
+      av_gramp_chest_evening_1: 403430259015886451
+      av_gramp_chest_evening_2: 7180546712669990226
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

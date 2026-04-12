@@ -14,12 +14,21 @@ public class PlayerMovement : MonoBehaviour
     {
         PromptMessageBehavior.OnPromptMessageClicked += DisableMovement;
         PromptMessageBehavior.OnPromptMessageClosed += EnableMovement;
+
+        DayCycleManager.OnDayPhaseWantsToShowInfoCard += DisableMovement;
+        DialogueUIBehavior.OnDialogueBoxOpen += DisableMovement;
+        DialogueUIBehavior.OnDialogueBoxClose += EnableMovement;
     }
 
     void OnDisable()
     {
         PromptMessageBehavior.OnPromptMessageClicked -= DisableMovement;
         PromptMessageBehavior.OnPromptMessageClosed -= EnableMovement;
+
+        DayCycleManager.OnDayPhaseWantsToShowInfoCard -= DisableMovement;
+        
+        DialogueUIBehavior.OnDialogueBoxOpen -= DisableMovement;
+        DialogueUIBehavior.OnDialogueBoxClose -= EnableMovement;
     }
 
 

@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 491e70e1db4b4477e80cf278edc43706
+guid: 524fa7d7012c34fd190c9eeb15971b1d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 314725746338704250
-    second: dialogue_box_0
+      213: 6534564831102106899
+    second: av_gramp_0
+  - first:
+      213: -8026450265178733096
+    second: av_gramp_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogue_box_0
+      name: av_gramp_0
       rect:
         serializedVersion: 2
-        x: 164
-        y: 0
-        width: 1613
-        height: 499
+        x: 1246
+        y: 336
+        width: 459
+        height: 648
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a7b203816612e5400800000000000000
-      internalID: 314725746338704250
+      spriteID: 31df99f97107faa50800000000000000
+      internalID: 6534564831102106899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: av_gramp_1
+      rect:
+        serializedVersion: 2
+        x: 1578
+        y: 977
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d58ea082025c9090800000000000000
+      internalID: -8026450265178733096
       vertices: []
       indices: 
       edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dialogue_box_0: 314725746338704250
+      av_gramp_0: 6534564831102106899
+      av_gramp_1: -8026450265178733096
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

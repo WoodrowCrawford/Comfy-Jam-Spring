@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class DialogueUIBehavior : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class DialogueUIBehavior : MonoBehaviour
     [Header("Dialogue Text Settings")]
     [Tooltip("The text label that will show the dialogue text")]
     [SerializeField] private TMP_Text _textLabel;
+    [SerializeField] private Image _speakerImageA;
+    [SerializeField] private Image _speakerImageB;
 
 
 
@@ -67,13 +70,6 @@ public class DialogueUIBehavior : MonoBehaviour
         }
         
     }
-
-
-    void Start()
-    {
-        ShowDialogue(testDialogueObject);
-    }
-
 
 
 
@@ -144,25 +140,62 @@ public class DialogueUIBehavior : MonoBehaviour
 
     private IEnumerator StepThroughDialogue(DialogueObjectBehavior dialogueObject)
     {
+         
+
         //gets the length of the dialogue in dialogueObject
         for(int i =  0; i < dialogueObject.Dialogue.Length; i++)
         {
            
-            string dialogue = dialogueObject.Dialogue[i];
+            DialogueLine dialogue = dialogueObject.Dialogue[i];
+
+            // Build a runtime display string so we don't overwrite the ScriptableObject text.
+            string displayText = dialogue.text;
+
             //Replaces the {playerName} tag with the player's name
-            dialogue = dialogue.Replace("{playerName}", FindAnyObjectByType<PlayerBehavior>().PlayerName);
-    
-            yield return _typewritterEffect.Run(dialogue, _textLabel);
+            PlayerBehavior playerBehavior = FindAnyObjectByType<PlayerBehavior>();
+            if (playerBehavior != null)
+            {
+                displayText = displayText.Replace("{playerName}", playerBehavior.PlayerName);
+            }
+
+            //replaces the {currentDay} tag with the current day
+            string currentDayText = DayCycleManager.CurrentDay.ToString();
+            displayText = displayText.Replace("{CurrentDay}", currentDayText);
+            displayText = displayText.Replace("{currentDay}", currentDayText);
+
+            //set the speaker images based on the dialogue line's speaker sprites
+            if (dialogue.speakerSpriteA != null)
+            {
+                _speakerImageA.sprite = dialogue.speakerSpriteA;
+                _speakerImageA.gameObject.SetActive(true);
+            }
+            else         
+         {
+                _speakerImageA.gameObject.SetActive(false);
+            }
+
+            if (dialogue.speakerSpriteB != null)
+            {
+                _speakerImageB.sprite = dialogue.speakerSpriteB;
+                _speakerImageB.gameObject.SetActive(true);
+            }
+            else
+            {
+                _speakerImageB.gameObject.SetActive(false);
+            }
+        
+            yield return _typewritterEffect.Run(displayText, _textLabel);
 
             if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses)
             {
                 break;
             }
-
-         
+    
 
             //Waits until the given input has been pressed before continuing using the new input system
             yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame);
+
+            
         }
 
         //if the dialogue has responses

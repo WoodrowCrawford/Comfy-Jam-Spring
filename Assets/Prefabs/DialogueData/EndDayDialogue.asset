@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
+  m_Name: EndDayDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
+  _dialogue:
+  - text: Welcome back, Tre! Thank you for grabbing the items for me!
+    speakerSpriteA: {fileID: 762295401419478983, guid: 8d1bb7c4be1714eb1aebaccc276f9104, type: 3}
+    speakerSpriteB: {fileID: -8621058548701807678, guid: 534855906e8ea4cf58cd4216d840f5c8, type: 3}
+  _responses: []
