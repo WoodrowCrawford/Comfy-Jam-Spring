@@ -21,6 +21,7 @@ public class DayCycleManager : MonoBehaviour
     [Header("Dialogue")]
     [SerializeField] private DialogueObjectBehavior startDayDialogue;
     [SerializeField] private DialogueObjectBehavior endDayDialogue;
+    [SerializeField] private DialogueObjectBehavior weekendDayDialogue;
 
     public enum DayPhase
     {
@@ -96,17 +97,24 @@ public class DayCycleManager : MonoBehaviour
 
     public IEnumerator StartDay()
     {
-        if(HUDBehavior.hasShownIntroCard == false)
-        {
-            //if we havent shown the intro card yet, we want to show it
-            OnDayPhaseWantsToShowInfoCard?.Invoke();   
-        }
 
         if(FindAnyObjectByType<PlayerBehavior>().PlayerName == string.Empty)
         {
             //if the player hasnt created their name yet, we want to show the prompt message to create their name
             OnDayPhaseWantsInitializePlayerName?.Invoke();
         }
+
+
+        if(HUDBehavior.hasShownIntroCard == false)
+        {
+            //if we havent shown the intro card yet, we want to show it
+            OnDayPhaseWantsToShowInfoCard?.Invoke();   
+        }
+
+        
+    
+
+        
 
        
         //wait until the player has created their name before we can show the dialogue
@@ -157,8 +165,24 @@ public class DayCycleManager : MonoBehaviour
         //at the end increase the day count and reset the day phase to start
         yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
         currentDay++;
+        
+        //if the current day is greater than or equal to 3, start the weekend phase
+        if(currentDay >= 3)
+        {
+            yield return StartCoroutine(WeekendDay());
+        }
 
         //Start the loop again!
+        yield return StartCoroutine(StartDay());
+    }
+
+    public IEnumerator WeekendDay()
+    {
+        Debug.Log("Starting weekend day phase");
+
+        //in this one reset the current day back to one and show a special dialogue for the weekend day, which we will need to create
+
+
         yield return StartCoroutine(StartDay());
     }
 }
