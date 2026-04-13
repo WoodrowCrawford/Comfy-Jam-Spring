@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 7921342095114521846}
   - component: {fileID: 1388736784431593868}
   - component: {fileID: 1469784643965707945}
+  - component: {fileID: -7197744230081064203}
   m_Layer: 0
-  m_Name: Hexagon Flat Top
+  m_Name: Hex Herb
   m_TagString: Herb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63035ff0b7f6904fa3e6ae406a09a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  pickupDistance: 2
 --- !u!60 &1469784643965707945
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -158,3 +160,21 @@ PolygonCollider2D:
       - {x: 0.5, y: 0}
       - {x: 0.25, y: 0.43359375}
   m_UseDelaunayMesh: 1
+--- !u!114 &-7197744230081064203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8140971133388213708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f9eb1dd2102e47b485e79eab29a50b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemBehavior
+  itemData: {fileID: 11400000, guid: 7ba6bf0be476a8446ad231897b2a1486, type: 2}
+  itemName: 
+  canGoInInventory: 1
+  OnItemUsed:
+    m_PersistentCalls:
+      m_Calls: []
