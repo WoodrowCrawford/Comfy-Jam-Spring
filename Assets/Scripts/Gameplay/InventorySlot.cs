@@ -146,14 +146,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             return;
         }
 
-        //if the previous slot is not null, then we need to clear the current item in the previous slot to prepare for the item being moved to this slot
+        // During swaps, clear slot references without destroying item objects.
         if (previousSlot != null)
         {
-            previousSlot.ClearCurrentItem();
+            previousSlot.currentItem = null;
+            previousSlot.itemNameText.text = string.Empty;
         }
 
-        //clear the current item in this slot to prepare for the new item being dropped here
-        ClearCurrentItem();
+        currentItem = null;
+        itemNameText.text = string.Empty;
 
         //if the previous slot was not null and the previous item is not null and the previous item is not the same as the dropped item...
         if (previousSlot != null && previousItem != null && previousItem != droppedItem)

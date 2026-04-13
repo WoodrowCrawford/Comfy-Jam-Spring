@@ -23,6 +23,8 @@ public class RewardsBehavior : MonoBehaviour
     [SerializeField] private TMP_Text playerPointsText;
 
 
+
+
     private Coroutine fillCoroutine;
 
 
@@ -36,14 +38,6 @@ public class RewardsBehavior : MonoBehaviour
         HUDBehavior.OnRewardsScreenOpen -= StartWeeklyRewardCalculation;
     }
     
-    private void Start()
-    {
-        //start the progress bar filling
-        //StartCoroutine(FillProgressBar());
-
-        //StartWeeklyRewardCalculation();
-    }
-
 
    //function that fills the progress bar over time depending on the time given and the points the player has
     private IEnumerator FillProgressBar(int pointsToFill)
@@ -197,17 +191,20 @@ public class RewardsBehavior : MonoBehaviour
         //wait until the progress bar is done filling
         yield return fillCoroutine;
 
-        //if the level up happened during the filling process, we want to wait a second and then show the rewards text again to show the new rewards level
-        if (progressBarSlider.value >= progressBarSlider.maxValue)
+        //check to see if a level up happened
         {
-            //show the rewards icons for the hats
-            Debug.Log("Player has earned a new hat!");
+            int currentMax = Mathf.RoundToInt(progressBarSlider.maxValue);
+            if (playerBehavior.WeeklyPoints >= currentMax)
+            {
+                //if the player filled the bar enough to level up, we can show a message or animation here to indicate that they have leveled up their rewards
+                Debug.Log("Player leveled up their rewards!");
 
-           
-           
+                yield return ChooseHatReward();
+            }
         }
 
-         yield return new WaitUntil(() => Keyboard.current.anyKey.wasPressedThisFrame);
+       
+        yield return new WaitUntil(() => Keyboard.current.anyKey.wasPressedThisFrame);
 
         //then we can hide this rewards screen and show the next scene, which we will need to create
         OnRewardsScreenComplete?.Invoke();
@@ -215,6 +212,15 @@ public class RewardsBehavior : MonoBehaviour
         yield break;
     }
 
+
+
+    //A function that will allow the player to choose a reward from the rewards screen
+    //For now will be a placeholder until we get hat assets
+    public IEnumerator ChooseHatReward()
+    {
+        Debug.Log("Player can choose a hat reward!");
+        yield break;
+    }
 
 
     //this function will be called when the rewards screen is opened and will start the process of calculating the rewards for the player based on the points they have
