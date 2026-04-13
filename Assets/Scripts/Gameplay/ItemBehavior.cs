@@ -172,6 +172,11 @@ public class ItemBehavior : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
         if (currentSlot != null)
         {
+            //we need to subtract the points from the player when they delete an item by dragging it outside of the inventory
+            PlayerBehavior player = FindObjectOfType<PlayerBehavior>();
+            player?.SubtractPoints(currentSlot.CurrentItem.GetComponent<ItemBehavior>().ItemData.ItemPoints);
+
+
             currentSlot.ClearCurrentItem();
         }
 

@@ -9,6 +9,9 @@ using Unity.VisualScripting;
 /// </summary>
 public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
 {
+    public delegate void InventoryEvent(GameObject item);
+    public static event InventoryEvent OnItemSuccessfullyAddedToInventory;
+
     [Header("Inventory References")]
     [SerializeField] private GameObject inventoryUI;
 
@@ -31,7 +34,65 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
 
     private void HandleItemPickup(GameObject itemData)
     {
-        AddItemToInventory(itemData);
+        if (itemData == null)
+        {
+            return;
+        }
+
+        // Keep inventory items independent from scene items.
+        GameObject inventoryItem = Instantiate(itemData);
+        PrepareInventoryItem(inventoryItem);
+        bool wasAdded = AddItemToInventory(inventoryItem);
+
+        if (wasAdded)
+        {
+            Destroy(itemData);
+
+            //fire an event to update the player weekly points when they pick up an item
+            OnItemSuccessfullyAddedToInventory?.Invoke(inventoryItem);
+        }
+        else
+        {
+            Destroy(inventoryItem);
+            Debug.Log("Inventory full, could not pick up: " + itemData.name);
+        }
+    }
+
+
+
+    private void PrepareInventoryItem(GameObject inventoryItem)
+    {
+        if (inventoryItem == null)
+        {
+            return;
+        }
+
+        // Remove world-only behavior so inventory copies are not affected by scene logic.
+        ItemPickup pickup = inventoryItem.GetComponent<ItemPickup>();
+        if (pickup != null)
+        {
+            Destroy(pickup);
+        }
+
+        BugAI bugAI = inventoryItem.GetComponent<BugAI>();
+        if (bugAI != null)
+        {
+            Destroy(bugAI);
+        }
+
+        Rigidbody2D rb = inventoryItem.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            Destroy(rb);
+        }
+
+        Collider2D collider = inventoryItem.GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            Destroy(collider);
+        }
+
+        inventoryItem.tag = "Untagged";
     }
 
 
@@ -105,11 +166,11 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
 
     //A function that adds an item to the inventory, by finding the first empty slot and placing the item there.
 
-    public void AddItemToInventory(GameObject itemToAdd)
+    public bool AddItemToInventory(GameObject itemToAdd)
     {
         if (itemToAdd == null)
         {
-            return;
+            return false;
         }
 
         if (inventorySlots.Count == 0)
@@ -140,8 +201,10 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
                 }
 
                 Debug.Log("Added item to inventory slot: " + inventorySlot.name);
-                break;
+                return true;
             }
         }
+
+        return false;
     }
 }

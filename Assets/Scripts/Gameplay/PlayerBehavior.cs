@@ -15,14 +15,14 @@ public class PlayerBehavior : MonoBehaviour
     void OnEnable()
     {
         PromptMessageBehavior.OnNameCreated += SetPlayerName;
-        ItemPickup.OnItemPickup += UpdateWeeklyPoints;
+        InventoryBehavior.OnItemSuccessfullyAddedToInventory += UpdateWeeklyPoints;
         DayCycleManager.OnWeekReset += ResetWeeklyPoints;
     }
 
     void OnDisable()
     {
         PromptMessageBehavior.OnNameCreated -= SetPlayerName;
-        ItemPickup.OnItemPickup -= UpdateWeeklyPoints;
+        InventoryBehavior.OnItemSuccessfullyAddedToInventory -= UpdateWeeklyPoints;
         DayCycleManager.OnWeekReset -= ResetWeeklyPoints;
     }
 
@@ -45,6 +45,11 @@ public class PlayerBehavior : MonoBehaviour
         {
             weeklyPoints += itemBehavior.ItemData.ItemPoints;
         }
+    }
+
+    public void SubtractPoints(int pointsToSubtract)
+    {
+        weeklyPoints -= pointsToSubtract;
     }
 
     public void ResetWeeklyPoints()
