@@ -151,7 +151,13 @@ public class DayCycleManager : MonoBehaviour
     {
         //hide the house scene room if its still active
         OnDayPhaseWantsToHideHouseSceneDayTime?.Invoke();
-        
+
+        QuestUIBehavior questUI = FindAnyObjectByType<QuestUIBehavior>();
+        if (questUI != null)
+        {
+            questUI.ToggleQuestPanel(true);
+        }
+
         //here the player can explore the forest.
 
         //when they want to end the day they can.
