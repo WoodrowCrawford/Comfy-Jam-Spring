@@ -15,6 +15,13 @@ public class DayCycleManager : MonoBehaviour
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToHideHouseSceneDayTime;
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowHouseSceneNightTime;
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToHideHouseSceneNightTime;
+
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowRewardsScreen;
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsToHideRewardsScreen;
+
+
+    public static event DayPhaseChangeEventHandler OnNewDay;
+    public static event DayPhaseChangeEventHandler OnWeekReset;
     
 
 
@@ -97,6 +104,7 @@ public class DayCycleManager : MonoBehaviour
 
     public IEnumerator StartDay()
     {
+        
 
         if(FindAnyObjectByType<PlayerBehavior>().PlayerName == string.Empty)
         {
@@ -111,11 +119,6 @@ public class DayCycleManager : MonoBehaviour
             OnDayPhaseWantsToShowInfoCard?.Invoke();   
         }
 
-        
-    
-
-        
-
        
         //wait until the player has created their name before we can show the dialogue
         yield return new WaitUntil(() => FindAnyObjectByType<PlayerBehavior>().PlayerName != string.Empty);
@@ -123,15 +126,20 @@ public class DayCycleManager : MonoBehaviour
 
         //fire an event to tell the hud to show the house scene room
         OnDayPhaseWantsToShowHouseSceneDayTime?.Invoke();
+        OnNewDay?.Invoke();
         
         //wait a few
         yield return new WaitForSeconds(1f);
 
-        //then we show the dialogue for the day
-        DialogueUIBehavior.instance.ShowDialogue(startDayDialogue);
+        // Show start dialogue for days 1, 2, and 3
+        if (currentDay <= 3)
+        {
+            //then we show the dialogue for the day
+            DialogueUIBehavior.instance.ShowDialogue(startDayDialogue);
 
-        //after the dialogue is done we can hide the house scene room
-        yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+            //after the dialogue is done we can hide the house scene room
+            yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+        }
 
 
         yield return StartCoroutine(ExploreForest());
@@ -146,7 +154,7 @@ public class DayCycleManager : MonoBehaviour
         
         //here the player can explore the forest.
 
-        //when they want to end the day
+        //when they want to end the day they can.
 
         yield break;
     }
@@ -166,23 +174,49 @@ public class DayCycleManager : MonoBehaviour
         yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
         currentDay++;
         
-        //if the current day is greater than or equal to 3, start the weekend phase
-        if(currentDay >= 3)
+        //if the current day is greater than 3, start the weekend phase
+        if(currentDay > 3)
         {
             yield return StartCoroutine(WeekendDay());
         }
 
-        //Start the loop again!
-        yield return StartCoroutine(StartDay());
+        else if(currentDay <= 3)
+        {
+            //Start the loop again!
+            yield return StartCoroutine(StartDay());
+        }
+
+        
     }
 
     public IEnumerator WeekendDay()
     {
-        Debug.Log("Starting weekend day phase");
+        //show the weekend house scene, which we will need to create
+        OnDayPhaseWantsToShowHouseSceneNightTime?.Invoke();
 
-        //in this one reset the current day back to one and show a special dialogue for the weekend day, which we will need to create
+        //play the weekend dialogue, which we will need to create
+        DialogueUIBehavior.instance.ShowDialogue(weekendDayDialogue);
+
+        //wait until the dialogue is done
+        yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+        //then show the rewards screen, which we will need to create
+        OnDayPhaseWantsToShowRewardsScreen?.Invoke();
 
 
+        yield return StartCoroutine(StartDay());
+    
+        //wait unitl the rewards screen is done showing
+        yield return new WaitUntil(() => !HUDBehavior.IsRewardsScreenActive);
+
+
+        //reset the day count back to 1
+        currentDay = 1;
+
+        //fire an event to tel the player to reset their points back to 0
+        OnWeekReset?.Invoke();
+
+        //start the morning phase again
         yield return StartCoroutine(StartDay());
     }
 }

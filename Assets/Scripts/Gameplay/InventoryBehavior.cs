@@ -19,12 +19,19 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
 
     void OnEnable()
     {
-        ItemPickup.OnItemPickup += (itemData) => AddItemToInventory(itemData);
+        ItemPickup.OnItemPickup += HandleItemPickup;
+        DayCycleManager.OnNewDay += ClearInventory;
     }
 
     void OnDisable()
     {
-        ItemPickup.OnItemPickup -= (itemData) => AddItemToInventory(itemData);
+        ItemPickup.OnItemPickup -= HandleItemPickup;
+        DayCycleManager.OnNewDay -= ClearInventory;
+    }
+
+    private void HandleItemPickup(GameObject itemData)
+    {
+        AddItemToInventory(itemData);
     }
 
 
@@ -69,6 +76,28 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
             if (slotBehavior != null)
             {
                 slotBehavior.RefreshCurrentItem();
+            }
+        }
+    }
+    
+
+    //A function that clears the inventory, by clearing all the inventory slots of their current items. 
+    public void ClearInventory()
+    {
+        Debug.Log("Clearing inventory for new day.");
+
+        if (inventorySlots.Count == 0)
+        {
+            GetInventorySlots();
+        }
+
+        //we need to clear all the inventory slots
+        foreach (GameObject inventorySlot in inventorySlots)
+        {
+            InventorySlot slotBehavior = inventorySlot.GetComponent<InventorySlot>();
+            if (slotBehavior != null)
+            {
+                slotBehavior.ClearCurrentItem();
             }
         }
     }

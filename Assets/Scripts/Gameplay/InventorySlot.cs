@@ -101,10 +101,20 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
-    //A function that clears the current item in the slot.
+    //A function that clears the current item in the slot by destroying the item GameObject.
     public void ClearCurrentItem()
     {
+        // Destroy all children that have ItemBehavior (the actual item GameObjects in the slot)
+        foreach (Transform child in transform)
+        {
+            if (child.GetComponent<ItemBehavior>() != null)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        
         currentItem = null;
+        itemNameText.text = string.Empty;
     }
 
     //This function is called when an item is dropped after being dragged over a slot.

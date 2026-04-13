@@ -8,11 +8,16 @@ using UnityEngine.UI;
 /// </summary>
 public class HUDBehavior : MonoBehaviour
 {
+
+    public delegate void HUDEventHandler();
+    public static event HUDEventHandler OnRewardsScreenOpen;
+
     [Header("HUD References")]
     [SerializeField] private GameObject inventoryUI;
     [SerializeField] private Button inventoryButton;
     [SerializeField] private GameObject infoCard;
     [SerializeField] private GameObject promptMessage;
+    [SerializeField] private GameObject rewardsScreen;
 
     [Header("House Scene References")]
     [SerializeField] private GameObject houseScene;
@@ -21,6 +26,7 @@ public class HUDBehavior : MonoBehaviour
 
     [Header("Bools")]
     public static bool hasShownIntroCard = false;
+    public static bool IsRewardsScreenActive = false;
 
     void OnEnable()
     {
@@ -36,6 +42,11 @@ public class HUDBehavior : MonoBehaviour
 
         DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime += ShowHouseSceneNightTime;
         DayCycleManager.OnDayPhaseWantsToHideHouseSceneNightTime += HideHouseSceneNightTime;
+
+        DayCycleManager.OnDayPhaseWantsToShowRewardsScreen += ShowRewardsScreen;
+        DayCycleManager.OnDayPhaseWantsToHideRewardsScreen += HideRewardsScreen;
+
+        RewardsBehavior.OnRewardsScreenComplete += HideRewardsScreen;
     }
 
     void OnDisable()
@@ -52,6 +63,9 @@ public class HUDBehavior : MonoBehaviour
          DayCycleManager.OnDayPhaseWantsToHideHouseSceneNightTime -= HideHouseSceneNightTime;
          DayCycleManager.OnDayPhaseWantsInitializePlayerName -= ShowPromptMessage;
         DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime -= ShowHouseSceneNightTime;
+        DayCycleManager.OnDayPhaseWantsToShowRewardsScreen -= ShowRewardsScreen;
+        DayCycleManager.OnDayPhaseWantsToHideRewardsScreen -= HideRewardsScreen;
+        RewardsBehavior.OnRewardsScreenComplete -= HideRewardsScreen;
     }
     
 
@@ -129,6 +143,21 @@ public class HUDBehavior : MonoBehaviour
     public void HideHouseSceneNightTime()
     {
         houseScene.SetActive(false);
+    }
+
+    public void ShowRewardsScreen()
+    {
+        rewardsScreen.SetActive(true);
+        IsRewardsScreenActive = true;
+
+        //tell the rewards screen to start the reward calculation process
+        OnRewardsScreenOpen?.Invoke();
+    }
+
+    public void HideRewardsScreen()
+    {
+        rewardsScreen.SetActive(false);
+        IsRewardsScreenActive = false;
     }
 
 }

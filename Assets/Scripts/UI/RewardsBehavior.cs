@@ -1,16 +1,225 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
+
 
 public class RewardsBehavior : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public delegate void RewardsEventHandler();
+    public static event RewardsEventHandler OnRewardsScreenComplete;
+   
+
+    [Header("Progress Bar")]
+    [SerializeField] private Slider progressBarSlider;
+    [SerializeField] private float fillTime = 3f;
+    [SerializeField] private int maxPointsForFullRewards = 10;
+    [SerializeField] private int maxIncreasePerOverflow = 5;
+
+
+    [Header("RewardsText")]
+    [SerializeField] private TMP_Text playerPointsText;
+
+
+    private Coroutine fillCoroutine;
+
+
+    private void OnEnable()
     {
-        
+        HUDBehavior.OnRewardsScreenOpen += StartWeeklyRewardCalculation;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        HUDBehavior.OnRewardsScreenOpen -= StartWeeklyRewardCalculation;
+    }
+    
+    private void Start()
+    {
+        //start the progress bar filling
+        //StartCoroutine(FillProgressBar());
+
+        //StartWeeklyRewardCalculation();
+    }
+
+
+   //function that fills the progress bar over time depending on the time given and the points the player has
+    private IEnumerator FillProgressBar(int pointsToFill)
+    {
+       //create a local variable to keep track of the current points filled, the max points for the current rewards level, and the total points to fill
+        float totalPointsToAdd = pointsToFill;
+        int currentMax = Mathf.Max(1, Mathf.RoundToInt(progressBarSlider.maxValue));
+        float currentValue = Mathf.Clamp(progressBarSlider.value, 0f, currentMax);
+
+        //set the progress bar's max value to the current max and the current value to the current value
+        progressBarSlider.minValue = 0f;
+        progressBarSlider.maxValue = currentMax;
+        progressBarSlider.value = currentValue;
+
+        //calculate the time it should take to fill one point based on the total points to fill and the fill time
+        float secondsPerPoint = 0f;
+        if (fillTime > 0f)
+        {
+            secondsPerPoint = fillTime / totalPointsToAdd;
+        }
+
+        //while we still have points to fill, we want to fill the progress bar
+        float remainingPointsToFill = pointsToFill;
+        while (remainingPointsToFill > 0f)
+        {
+            //calculate how many points we can fill in this pass, which is the minimum of the remaining points to fill and the points until we reach the current max
+            float pointsUntilMax = currentMax - currentValue;
+
+            //if we can't fill any points without overflowing, we need to level up the bar before we can continue filling
+            if (pointsUntilMax <= 0f)
+            {
+                LevelUpBar(ref currentMax, ref currentValue);
+                continue;
+            }
+
+            //get the remaining points to fill for this pass
+            float pointsThisPass = Mathf.Min(remainingPointsToFill, pointsUntilMax);
+            float targetValue = currentValue + pointsThisPass;
+            float passDuration = secondsPerPoint * pointsThisPass;
+
+            //animate the slider value from the current value to the target value over the duration of this pass
+            yield return StartCoroutine(AnimateSliderValue(currentValue, targetValue, passDuration));
+
+            //set the current value to the target value and subtract the points we just filled from the remaining points to fill
+            currentValue = targetValue;
+            remainingPointsToFill -= pointsThisPass;
+
+            //if we have filled enough points to reach or exceed the current max, we need to level up the bar before we can continue filling
+            if (currentValue >= currentMax)
+            {
+                LevelUpBar(ref currentMax, ref currentValue);
+            }
+        }
+    }
+
+    //this function will increase the max value of the progress bar and reset the current value to 0 when the player overflows the progress bar
+    private void LevelUpBar(ref int currentMax, ref float currentValue)
+    {
+        currentMax += Mathf.Max(1, maxIncreasePerOverflow);
+        maxPointsForFullRewards = currentMax;
+        progressBarSlider.maxValue = currentMax;
+        currentValue = 0f;
+        progressBarSlider.value = 0f;
+    }
+
+
+    //A function that animates the slider value from a start value to a target value over a duration
+    private IEnumerator AnimateSliderValue(float startValue, float targetValue, float duration)
+    {
+        //set the slider value to the start value at the beginning of the animation
+        progressBarSlider.value = startValue;
+
+        //if the start value and target value are approximately the same, we can skip the animation
+        if (Mathf.Approximately(startValue, targetValue))
+        {
+            yield break;
+        }
+
+        //if the duration is 0 or negative, we can just set the slider value to the target value immediately
+        if (duration <= 0f)
+        {
+            progressBarSlider.value = targetValue;
+            yield break;
+        }
+
+        //animate the slider value from the start value to the target value over the duration
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            //update the elapsed time based on the delta time and the fill time
+            elapsedTime += Time.deltaTime *(maxPointsForFullRewards / progressBarSlider.maxValue) * fillTime;
+
+            //calculate the new slider value based on the elapsed time and the total duration, and set the slider value to that
+            float t = 0f;
+            if (duration > 0f)
+            {
+                t = elapsedTime / duration;
+            }
+
+            //if the duration is 0 or negative, we can just set the slider value to the target value immediately
+            else
+            {
+                t = 1f;
+            }
+
+            //lerp the slider value from the start value to the target value based on t, and set the slider value to that
+            progressBarSlider.value = Mathf.Lerp(startValue, targetValue, Mathf.Clamp01(t));
+            yield return null;
+        }
+
+        //set the slider value to the target value at the end of the animation
+        progressBarSlider.value = targetValue;
+    }
+
+
+    //this function will start the process of calculating the rewards for the player based on the points they have
+    public IEnumerator StartWeeklyRewardCalculationSetUp()
+    {
+
+        //first we want to hide the rewards text and the progress bar
+        playerPointsText.gameObject.SetActive(false);
+        progressBarSlider.gameObject.SetActive(false);
+
+        //then we wait a second
+        yield return new WaitForSeconds(1f);
+
+        //then we show the the points game object
+        playerPointsText.gameObject.SetActive(true);
+       
+        //then we get the player's points and show them on the screen
+        PlayerBehavior playerBehavior = FindAnyObjectByType<PlayerBehavior>();
+        playerPointsText.text = "Points: " + playerBehavior.WeeklyPoints.ToString();
+
+
+        //then we wait a second
+        yield return new WaitForSeconds(1f);
+
+        //then we show the rewards bar
+        progressBarSlider.gameObject.SetActive(true);
+      
+
+        //then we show the rewards that the player has earned based on the points they have
+        if (fillCoroutine != null)
+        {
+            StopCoroutine(fillCoroutine);
+        }
+
+        //start the coroutine to fill the progress bar based on the player's points
+        fillCoroutine = StartCoroutine(FillProgressBar(playerBehavior.WeeklyPoints));
+
+        //wait until the progress bar is done filling
+        yield return fillCoroutine;
+
+        //if the level up happened during the filling process, we want to wait a second and then show the rewards text again to show the new rewards level
+        if (progressBarSlider.value >= progressBarSlider.maxValue)
+        {
+            //show the rewards icons for the hats
+            Debug.Log("Player has earned a new hat!");
+
+           
+           
+        }
+
+         yield return new WaitUntil(() => Keyboard.current.anyKey.wasPressedThisFrame);
+
+        //then we can hide this rewards screen and show the next scene, which we will need to create
+        OnRewardsScreenComplete?.Invoke();
+
+        yield break;
+    }
+
+
+
+    //this function will be called when the rewards screen is opened and will start the process of calculating the rewards for the player based on the points they have
+    public void StartWeeklyRewardCalculation()
+    {
+        StartCoroutine(StartWeeklyRewardCalculationSetUp());
     }
 }

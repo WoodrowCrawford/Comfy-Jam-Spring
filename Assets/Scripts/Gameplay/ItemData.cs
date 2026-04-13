@@ -26,12 +26,9 @@ public class ItemData : ScriptableObject
     
     [Header("Basic Info")]
     [SerializeField] private string itemName;
-
-
     [SerializeField, TextArea] private string itemDescription;
-
-    
     [SerializeField] private Sprite itemIcon;
+    [SerializeField] private int itemPoints;
    
 
     [Space(10)]
@@ -47,6 +44,8 @@ public class ItemData : ScriptableObject
     public string ItemName => itemName;
     public string ItemDescription => itemDescription;
     public Sprite ItemIcon => itemIcon;
+    public int ItemPoints => itemPoints;
+
     public ItemCategory Category => itemCategory;
     public PowerupType Powerup => powerupType;
     public int PowerAmount => powerAmount;

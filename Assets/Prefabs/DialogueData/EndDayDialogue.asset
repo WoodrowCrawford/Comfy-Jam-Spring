@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: EndDayDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
   _dialogue:
-  - text: Welcome back, Tre! Thank you for grabbing the items for me!
+  - text: Welcome back, {playerName}! Thank you for grabbing the items for me!
     speakerSpriteA: {fileID: 762295401419478983, guid: 8d1bb7c4be1714eb1aebaccc276f9104, type: 3}
+    speakerSpriteB: {fileID: 403430259015886451, guid: cda14d703f44b4000971895e2ae22b6b, type: 3}
+  - text: Now go get some rest!
+    speakerSpriteA: {fileID: 2725217190876209870, guid: c25c6621baf58428c96177cd187d11a2, type: 3}
     speakerSpriteB: {fileID: -8621058548701807678, guid: 534855906e8ea4cf58cd4216d840f5c8, type: 3}
   _responses: []

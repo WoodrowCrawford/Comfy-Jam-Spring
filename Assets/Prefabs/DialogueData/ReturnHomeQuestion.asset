@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ReturnHomeQuestion
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
   _dialogue:
-  - Return home?
+  - text: Go back home?
+    speakerSpriteA: {fileID: 0}
+    speakerSpriteB: {fileID: 0}
   _responses:
   - _responseText: Yes
     _dialogueObject: {fileID: 0}

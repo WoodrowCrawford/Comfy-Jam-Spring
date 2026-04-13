@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Bug
   itemDescription: 
   itemIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  itemPoints: 1
   itemCategory: 1
   powerupType: 0
   powerAmount: 1

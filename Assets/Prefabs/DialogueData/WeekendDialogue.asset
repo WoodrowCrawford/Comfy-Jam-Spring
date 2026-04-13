@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
   m_Name: WeekendDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
-  _dialogue: []
+  _dialogue:
+  - text: Its the weekend {playerName}!
+    speakerSpriteA: {fileID: -6860777484881252876, guid: 13f08dabed3a64094aa53375dbb6cfc6, type: 3}
+    speakerSpriteB: {fileID: 403430259015886451, guid: cda14d703f44b4000971895e2ae22b6b, type: 3}
+  - text: Now its time to see how you did!
+    speakerSpriteA: {fileID: -6860777484881252876, guid: 13f08dabed3a64094aa53375dbb6cfc6, type: 3}
+    speakerSpriteB: {fileID: 403430259015886451, guid: cda14d703f44b4000971895e2ae22b6b, type: 3}
   _responses: []
