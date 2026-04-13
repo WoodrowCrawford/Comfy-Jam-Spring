@@ -64,8 +64,7 @@ public class ItemPickup : MonoBehaviour
         {
             OnItemPickupAnimation?.Invoke();
             OnItemPickup?.Invoke(gameObject);
-
-            Destroy(gameObject);
+            return;
         }
 
         //if not then its an interactable object so call the event
