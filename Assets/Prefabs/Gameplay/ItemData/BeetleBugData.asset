@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f4cab22c82a3473a98ad838f90fb159, type: 3}
-  m_Name: RedBugData
+  m_Name: BeetleBugData
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Lady Bug
+  itemName: Beetle
   itemDescription: 
-  itemIcon: {fileID: 21300000, guid: 95509d84b04614820bfea27291ebde17, type: 3}
+  itemIcon: {fileID: 21300000, guid: 5fb808afd6b67476783920abca124c31, type: 3}
   itemPoints: 3
   itemCategory: 0
   powerupType: 0

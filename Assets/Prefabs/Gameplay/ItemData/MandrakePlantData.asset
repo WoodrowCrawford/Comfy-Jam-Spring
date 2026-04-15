@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f4cab22c82a3473a98ad838f90fb159, type: 3}
-  m_Name: CircleHerbData
+  m_Name: MandrakePlantData
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Circle Herb
+  itemName: Mandrake
   itemDescription: 
-  itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  itemIcon: {fileID: 21300000, guid: cb5511d535b5c448f8a9b7a472b22a53, type: 3}
   itemPoints: 1
   itemCategory: 1
   powerupType: 0

@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 1532141805038039859}
   - component: {fileID: -4301750240444258145}
   - component: {fileID: 3447324544733657920}
-  - component: {fileID: 8478783503581127838}
-  - component: {fileID: 4710314069470049990}
+  - component: {fileID: 4647290492910044901}
+  - component: {fileID: 5448844717846054711}
   m_Layer: 0
   m_Name: LadyBug
   m_TagString: Untagged
@@ -33,15 +33,15 @@ RectTransform:
   m_GameObject: {fileID: 2549207997755859140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.46, y: 0.29}
-  m_SizeDelta: {x: 0.32, y: 0.32}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.14, y: 0.14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &4798283152076022028
 SpriteRenderer:
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 95509d84b04614820bfea27291ebde17, type: 3}
-  m_Color: {r: 0.8862745, g: 0.21673487, b: 0.18823527, a: 1}
+  m_Color: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,7 +136,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0154827535, y: 0.0019353181}
+  m_Offset: {x: -0.007884473, y: -0.000120881945}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -146,7 +146,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.14844751, y: 0.19876656}
+  m_Size: {x: 0.1237452, y: 0.14238483}
   m_EdgeRadius: 0
 --- !u!114 &-5455718537457124448
 MonoBehaviour:
@@ -160,8 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059dfef9eb777b244af0ea4158f58ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BugAI
-  minSpeed: 3
-  maxSpeed: 6
+  minSpeed: 1
+  maxSpeed: 3
 --- !u!50 &1532141805038039859
 Rigidbody2D:
   serializedVersion: 5
@@ -215,12 +215,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemBehavior
   itemData: {fileID: 11400000, guid: e36461d55e30e1e4d8cac7eeebd9849e, type: 2}
-  itemName: LadyBug
+  itemName: 
   canGoInInventory: 1
   OnItemUsed:
     m_PersistentCalls:
       m_Calls: []
---- !u!222 &8478783503581127838
+--- !u!222 &4647290492910044901
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,7 +228,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2549207997755859140}
   m_CullTransparentMesh: 1
---- !u!114 &4710314069470049990
+--- !u!114 &5448844717846054711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

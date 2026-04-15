@@ -4246,7 +4246,7 @@ PrefabInstance:
     - target: {fileID: 8340398365918102464, guid: a9410dfbfdd8e2c4f8a86e1431c0ed13, type: 3}
       propertyPath: 'bugPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 2549207997755859140, guid: 9e895d4fa501b1149aaa220dca62727e, type: 3}
+      objectReference: {fileID: 2549207997755859140, guid: f3ad8a45ca6404a9fa3f3e0704903964, type: 3}
     - target: {fileID: 8340398365918102464, guid: a9410dfbfdd8e2c4f8a86e1431c0ed13, type: 3}
       propertyPath: 'bugPrefabs.Array.data[1]'
       value: 

@@ -13,6 +13,8 @@ public class ItemData : ScriptableObject
         Material,
         Consumable,
         Powerup,
+        Plant,
+        Bug,
         Quest
     }
 

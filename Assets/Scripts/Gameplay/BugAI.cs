@@ -23,7 +23,7 @@ public class BugAI : MonoBehaviour
 
         if (moveDirection.x != 0)
         {
-            transform.localScale = new Vector3(moveDirection.x > 0 ? 1 : -1, 1, 1);
+            //transform.localScale = new Vector3(moveDirection.x > 0 ? 1 : -1, 1, 1);
         }
     }
 
