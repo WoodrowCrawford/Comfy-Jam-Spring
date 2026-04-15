@@ -1018,6 +1018,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641345959}
   m_CullTransparentMesh: 1
+--- !u!1 &938574506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938574508}
+  - component: {fileID: 938574507}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &938574507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938574506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf527973e0a747f1822009083b6e3f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  soundFXObject: {fileID: 5720930438126615284, guid: f103cbc9d832a4eae8b28076922d388a, type: 3}
+  uiSoundObject: {fileID: 5720930438126615284, guid: ad05114b612194b65aba48cdb162e0c7, type: 3}
+  uiBoopClip1: {fileID: 8300000, guid: 0e396a25e201944f8a1c82337e198fc2, type: 3}
+  uiBoopClip2: {fileID: 8300000, guid: c30bc688c45ba4cbb9435200596c6daf, type: 3}
+  uiBoopClip3: {fileID: 8300000, guid: 512d0e2b6653f49cca490317ff3ca5ee, type: 3}
+  uiBoopClip4: {fileID: 8300000, guid: 86ad5fb407283491f8f507df8b0c4601, type: 3}
+  uiClickClip1: {fileID: 8300000, guid: a5fa12bed59714779be6a10b862c4249, type: 3}
+  uiClickClip2: {fileID: 8300000, guid: 6247043df9d7d4f4f8e968ac9a30a022, type: 3}
+  uiClickClip3: {fileID: 8300000, guid: a4edd6c7afe784deeb77bc15eff4d11b, type: 3}
+  uiClickClip4: {fileID: 8300000, guid: 4e2abd59f56c84cf38b692fcadac5843, type: 3}
+  uiClickClip5: {fileID: 8300000, guid: 58a2aa7a28b554ab19ca9b21121e8934, type: 3}
+  uiInventoryOpenClip: {fileID: 8300000, guid: 46cbe57391fc94f1eaa43b86b66c8e79, type: 3}
+  uiInventoryCloseClip: {fileID: 8300000, guid: a98c974e1b3824558a2c0826c358926a, type: 3}
+  listOpenClip1: {fileID: 8300000, guid: d4b1a0f728b8e427498096e8583aebe4, type: 3}
+  listOpenClip2: {fileID: 8300000, guid: d2ca41a16c16447ba9203f126df20882, type: 3}
+  listCloseClip: {fileID: 8300000, guid: c5ce8fee2eed943c9b0b0460e0f137ee, type: 3}
+  bugCatchClip1: {fileID: 8300000, guid: f57bd13092a5742a4b1afc0aef9f6e2c, type: 3}
+  bugCatchClip2: {fileID: 8300000, guid: ec2b28e4c31b14a2685746947e65eae3, type: 3}
+  bugCatchClip3: {fileID: 8300000, guid: 41924304cb08245f1925fdb0beea11c9, type: 3}
+  pickHerbClip1: {fileID: 8300000, guid: 9959dce55d9a4480e9f3f426d8859481, type: 3}
+  pickHerbClip2: {fileID: 8300000, guid: 2ee90af1598164577a91c31989502bf2, type: 3}
+  pickHerbClip3: {fileID: 8300000, guid: 7cb768516b94d47e2bb1416b7dad627d, type: 3}
+  walkGrassClip: {fileID: 8300000, guid: 375d22c93fdcc4c0b9a9ac91f8964a32, type: 3}
+  walkMudClip: {fileID: 8300000, guid: c85273f05a45f4c18ba55e2d392f1af2, type: 3}
+  walkTilesClip: {fileID: 8300000, guid: 9b3440317a2984c328701c3cec880b38, type: 3}
+--- !u!4 &938574508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938574506}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.1411, y: -3.72106, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1014033939
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,3 +4363,4 @@ SceneRoots:
   - {fileID: 6439712192146105126}
   - {fileID: 7926393171865498465}
   - {fileID: 128434612}
+  - {fileID: 938574508}

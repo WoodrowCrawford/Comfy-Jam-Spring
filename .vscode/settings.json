@@ -71,6 +71,9 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
+    "[csharp]": {
+        "editor.acceptSuggestionOnCommitCharacter": false
+    },
     "dotnet.defaultSolution": "Comfy-Jam-Spring.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
