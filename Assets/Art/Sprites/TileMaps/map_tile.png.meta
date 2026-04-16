@@ -84,7 +84,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -146,57 +146,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: map_tile_0
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 134
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ec56f9e3987000950800000000000000
-      internalID: 6413134155418133966
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_tile_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 118
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bfe79f922e20d1e00800000000000000
-      internalID: 1016972261245681403
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: map_tile_2
       rect:
         serializedVersion: 2
-        x: 16
-        y: 118
-        width: 16
-        height: 16
+        x: 15
+        y: 116
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,28 +163,6 @@ TextureImporter:
       bones: []
       spriteID: b44e7fe85248c7de0800000000000000
       internalID: -1334046092761242549
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_tile_3
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 118
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 626a609cc82619e40800000000000000
-      internalID: 5661414563389023782
       vertices: []
       indices: 
       edges: []
@@ -281,7 +215,7 @@ TextureImporter:
       name: map_tile_6
       rect:
         serializedVersion: 2
-        x: 112
+        x: 113
         y: 118
         width: 16
         height: 16
@@ -303,7 +237,7 @@ TextureImporter:
       name: map_tile_7
       rect:
         serializedVersion: 2
-        x: 128
+        x: 129
         y: 118
         width: 16
         height: 16
@@ -317,72 +251,6 @@ TextureImporter:
       bones: []
       spriteID: 9a3ea67612e133130800000000000000
       internalID: 3545210460488524713
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_tile_8
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 102
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aeff86cbfa2b8feb0800000000000000
-      internalID: -4685798944428982294
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_tile_9
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 102
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 27cf6f7f332e502b0800000000000000
-      internalID: -5618836247243457422
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_tile_10
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 102
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1cd8a9960069d7f40800000000000000
-      internalID: 5727899229601041857
       vertices: []
       indices: 
       edges: []
@@ -435,7 +303,7 @@ TextureImporter:
       name: map_tile_13
       rect:
         serializedVersion: 2
-        x: 112
+        x: 113
         y: 102
         width: 16
         height: 16
@@ -457,7 +325,7 @@ TextureImporter:
       name: map_tile_14
       rect:
         serializedVersion: 2
-        x: 128
+        x: 129
         y: 102
         width: 16
         height: 16
@@ -479,8 +347,8 @@ TextureImporter:
       name: map_tile_15
       rect:
         serializedVersion: 2
-        x: 16
-        y: 86
+        x: 13
+        y: 94
         width: 16
         height: 16
       alignment: 0
@@ -501,8 +369,8 @@ TextureImporter:
       name: map_tile_16
       rect:
         serializedVersion: 2
-        x: 32
-        y: 86
+        x: 31
+        y: 94
         width: 16
         height: 16
       alignment: 0
@@ -523,8 +391,8 @@ TextureImporter:
       name: map_tile_17
       rect:
         serializedVersion: 2
-        x: 48
-        y: 86
+        x: 49
+        y: 94
         width: 16
         height: 16
       alignment: 0
@@ -546,7 +414,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 80
-        y: 86
+        y: 85
         width: 16
         height: 16
       alignment: 0
@@ -568,7 +436,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 86
+        y: 85
         width: 16
         height: 16
       alignment: 0
@@ -589,8 +457,8 @@ TextureImporter:
       name: map_tile_20
       rect:
         serializedVersion: 2
-        x: 112
-        y: 86
+        x: 113
+        y: 85
         width: 16
         height: 16
       alignment: 0
@@ -611,8 +479,8 @@ TextureImporter:
       name: map_tile_21
       rect:
         serializedVersion: 2
-        x: 128
-        y: 86
+        x: 129
+        y: 85
         width: 16
         height: 16
       alignment: 0
@@ -633,10 +501,10 @@ TextureImporter:
       name: map_tile_22
       rect:
         serializedVersion: 2
-        x: 16
-        y: 70
-        width: 16
-        height: 16
+        x: 15
+        y: 66
+        width: 33
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -652,33 +520,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_tile_23
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 70
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6a1c0e8ae31548e2ac8dc79b9260d28
-      internalID: 1544386189
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: map_tile_24
       rect:
         serializedVersion: 2
         x: 80
-        y: 70
+        y: 69
         width: 16
         height: 16
       alignment: 0
@@ -700,7 +546,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 70
+        y: 69
         width: 16
         height: 16
       alignment: 0
@@ -721,8 +567,8 @@ TextureImporter:
       name: map_tile_26
       rect:
         serializedVersion: 2
-        x: 112
-        y: 70
+        x: 113
+        y: 69
         width: 16
         height: 16
       alignment: 0
@@ -743,8 +589,8 @@ TextureImporter:
       name: map_tile_27
       rect:
         serializedVersion: 2
-        x: 128
-        y: 70
+        x: 129
+        y: 69
         width: 16
         height: 16
       alignment: 0
@@ -762,55 +608,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_tile_28
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 54
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 273f498ebb0ab40bca96458949bd2dc5
-      internalID: 2107186249
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_tile_29
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 54
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a21f66b0600cd4783b2f91bf4bede8db
-      internalID: -1145185265
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: map_tile_30
       rect:
         serializedVersion: 2
         x: 80
-        y: 54
+        y: 51
         width: 16
         height: 16
       alignment: 0
@@ -832,7 +634,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 54
+        y: 51
         width: 16
         height: 16
       alignment: 0
@@ -853,8 +655,8 @@ TextureImporter:
       name: map_tile_32
       rect:
         serializedVersion: 2
-        x: 112
-        y: 54
+        x: 113
+        y: 51
         width: 16
         height: 16
       alignment: 0
@@ -875,8 +677,8 @@ TextureImporter:
       name: map_tile_33
       rect:
         serializedVersion: 2
-        x: 128
-        y: 54
+        x: 129
+        y: 51
         width: 16
         height: 16
       alignment: 0
@@ -898,7 +700,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 80
-        y: 38
+        y: 35
         width: 16
         height: 16
       alignment: 0
@@ -920,7 +722,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 38
+        y: 35
         width: 16
         height: 16
       alignment: 0
@@ -941,8 +743,8 @@ TextureImporter:
       name: map_tile_36
       rect:
         serializedVersion: 2
-        x: 112
-        y: 38
+        x: 113
+        y: 35
         width: 16
         height: 16
       alignment: 0
@@ -963,8 +765,8 @@ TextureImporter:
       name: map_tile_37
       rect:
         serializedVersion: 2
-        x: 128
-        y: 38
+        x: 129
+        y: 35
         width: 16
         height: 16
       alignment: 0
@@ -986,7 +788,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 80
-        y: 22
+        y: 17
         width: 16
         height: 16
       alignment: 0
@@ -1008,7 +810,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 22
+        y: 17
         width: 16
         height: 16
       alignment: 0
@@ -1026,55 +828,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: map_tile_40
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 22
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ea2b4241934241398e98686bbc14508
-      internalID: -1214990007
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: map_tile_41
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 22
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 25d0c1f7804714ac8b35122212db9eb2
-      internalID: 1587521339
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: map_tile_42
       rect:
         serializedVersion: 2
         x: 80
-        y: 6
+        y: 1
         width: 16
         height: 16
       alignment: 0
@@ -1096,7 +854,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 6
+        y: 1
         width: 16
         height: 16
       alignment: 0

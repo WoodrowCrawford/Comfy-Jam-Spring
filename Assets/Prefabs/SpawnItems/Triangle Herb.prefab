@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6506780144326051687}
   - component: {fileID: 7334322736306854087}
   - component: {fileID: 276518509382542170}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Triangle Herb
   m_TagString: Herb
   m_Icon: {fileID: 0}

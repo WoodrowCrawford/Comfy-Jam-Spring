@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1388736784431593868}
   - component: {fileID: 1469784643965707945}
   - component: {fileID: -7197744230081064203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hex Herb
   m_TagString: Herb
   m_Icon: {fileID: 0}

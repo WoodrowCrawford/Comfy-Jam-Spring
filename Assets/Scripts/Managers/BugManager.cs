@@ -5,43 +5,24 @@ public class BugManager : MonoBehaviour
 {
     [SerializeField] GameObject[] bugPrefabs;
     [SerializeField] int maxBugsOnScreen = 3;
-    public static float spawnBuffer = 4f;
+    public static float spawnBuffer = 2f;
 
     List<GameObject> activeBugs = new List<GameObject>();
-    float screenBoundX;
-    float screenBoundY;
+    Camera cam;
 
     void Start()
     {
-        screenBoundX = Camera.main.orthographicSize * Camera.main.aspect;
-        screenBoundY = Camera.main.orthographicSize;
+        cam = Camera.main;
 
         for (int i = 0; i < maxBugsOnScreen; i++)
         {
             SpawnBug(true);
         }
-
-        InvokeRepeating("CleanAndSpawnBugs", 0.5f, 0.5f);
-    }
-
-    void CleanAndSpawnBugs()
-    {
-        activeBugs.RemoveAll(item => item == null);
-        if (activeBugs.Count < maxBugsOnScreen)
-        {
-            SpawnBug(false);
-        }
     }
 
     void Update()
     {
-        for (int i = activeBugs.Count - 1; i >= 0; i--)
-        {
-            if (activeBugs[i] == null)
-            {
-                activeBugs.RemoveAt(i);
-            }
-        }
+        activeBugs.RemoveAll(item => item == null);
 
         if (activeBugs.Count < maxBugsOnScreen)
         {
@@ -51,34 +32,52 @@ public class BugManager : MonoBehaviour
 
     void SpawnBug(bool isInitial)
     {
-        float buffer = 4f;
-
         if (bugPrefabs == null || bugPrefabs.Length == 0) return;
 
-        GameObject randomBugPrefab = bugPrefabs[UnityEngine.Random.Range(0, bugPrefabs.Length)];
+        float height = cam.orthographicSize;
+        float width = height * cam.aspect;
+        Vector3 camPos = cam.transform.position;
 
-        float spawnX = UnityEngine.Random.Range(-screenBoundX, screenBoundX);
-        float spawnY = UnityEngine.Random.Range(-screenBoundY, screenBoundY);
+        float spawnX, spawnY;
 
-        if (!isInitial)
+        if (isInitial)
         {
-            int edge = UnityEngine.Random.Range(0, 4);
+            spawnX = Random.Range(camPos.x - width, camPos.x + width);
+            spawnY = Random.Range(camPos.y - height, camPos.y + height);
+        }
+        else
+        {
+            int edge = Random.Range(0, 4);
             switch (edge)
             {
-                case 0: spawnX = screenBoundX + spawnBuffer; break;
-                case 1: spawnX = -screenBoundX - spawnBuffer; break;
-                case 2: spawnY = screenBoundY + spawnBuffer; break;
-                case 3: spawnY = -screenBoundY - spawnBuffer; break;
+                case 0:
+                    spawnX = Random.Range(camPos.x - width, camPos.x + width);
+                    spawnY = camPos.y + height + 1f;
+                    break;
+                case 1:
+                    spawnX = Random.Range(camPos.x - width, camPos.x + width);
+                    spawnY = camPos.y - height - spawnBuffer;
+                    break;
+                case 2:
+                    spawnX = camPos.x - width - spawnBuffer;
+                    spawnY = Random.Range(camPos.y - height, camPos.y + height);
+                    break;
+                default:
+                    spawnX = camPos.x + width + spawnBuffer;
+                    spawnY = Random.Range(camPos.y - height, camPos.y + height);
+                    break;
             }
         }
 
         Vector2 spawnPos = new Vector2(spawnX, spawnY);
-        Vector2 targetPos = new Vector2(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f, 2f));
+
+        Vector2 targetPos = (Vector2)camPos + new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
         Vector2 directionVector = (targetPos - spawnPos).normalized;
 
-        GameObject newBug = Instantiate(randomBugPrefab, spawnPos, Quaternion.identity);
-        activeBugs.Add(newBug);
+        GameObject randomBugPrefab = bugPrefabs[Random.Range(0, bugPrefabs.Length)];
+        GameObject newBug = Instantiate(randomBugPrefab, new Vector3(spawnX, spawnY, 0), Quaternion.identity);
 
+        activeBugs.Add(newBug);
         newBug.GetComponent<BugAI>().SetStartingDirection(directionVector);
     }
 }
