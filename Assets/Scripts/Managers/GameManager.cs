@@ -32,15 +32,17 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         //find the start button in the scene and add a listener to it to start the game when clicked
-        startButton = GameObject.Find("StartButton")?.GetComponent<Button>();
+        startButton = GameObject.Find("PlayButton")?.GetComponent<Button>();
 
-        startButton?.onClick.AddListener(() => SceneManager.LoadScene("MainScene"));
+        startButton?.onClick.AddListener(() => SceneManager.LoadScene("ElleScene"));
+        startButton?.onClick.AddListener(() => SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiClickClip1, startButton.transform, false, 0f, 0f));
     }
 
     
     private void OnDisable()
     {
-        startButton?.onClick.RemoveListener(() => SceneManager.LoadScene("MainScene"));
+        startButton?.onClick.RemoveListener(() => SceneManager.LoadScene("ElleScene"));
+        startButton?.onClick.RemoveListener(() => SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiClickClip1, startButton.transform, false, 0f, 0f));
     }
 
 

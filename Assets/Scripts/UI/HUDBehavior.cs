@@ -14,10 +14,16 @@ public class HUDBehavior : MonoBehaviour
 
     [Header("HUD References")]
     [SerializeField] private GameObject inventoryUI;
-    [SerializeField] private Button inventoryButton;
+    
+    
     [SerializeField] private GameObject infoCard;
     [SerializeField] private GameObject promptMessage;
     [SerializeField] private GameObject rewardsScreen;
+
+    [Header("Buttons")]
+    [SerializeField] private Button toggleQuestButton;
+    [SerializeField] private Button inventoryButton;
+    [SerializeField] private Button introCardExitButton;
 
     [Header("House Scene References")]
     [SerializeField] private GameObject houseScene;
@@ -30,7 +36,28 @@ public class HUDBehavior : MonoBehaviour
 
     void OnEnable()
     {
+
+        //Since we are changing scenes a lot, we need to find the buttons in the scene and add listeners to them every time the scene changes, instead of just doing it once in Awake.
+        introCardExitButton = System.Array.Find(
+        infoCard.GetComponentsInChildren<Button>(true),
+        button => button.name == "CloseButton"
+);
+        inventoryButton = GameObject.Find("ToggleInventoryButton")?.GetComponent<Button>();
+        toggleQuestButton = GameObject.Find("ToggleQuestButton")?.GetComponent<Button>();
+
+        
+
+
+
+
+
+        //First control the sounds for the buttons
+        introCardExitButton.onClick.AddListener(() => SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiClickClip1, introCardExitButton.transform, false, 0f, 0f));
+
+
         inventoryButton.onClick.AddListener(ToggleInventory);
+
+
         DialogueUIBehavior.OnDialogueBoxOpen += HandleDialogueBoxOpen;
         DialogueUIBehavior.OnDialogueBoxClose += HandleDialogueBoxClose;
 
@@ -51,6 +78,10 @@ public class HUDBehavior : MonoBehaviour
 
     void OnDisable()
     {
+        introCardExitButton.onClick.RemoveAllListeners();
+
+
+
         inventoryButton.onClick.RemoveListener(ToggleInventory);
         DialogueUIBehavior.OnDialogueBoxOpen -= HandleDialogueBoxOpen;
         DialogueUIBehavior.OnDialogueBoxClose -= HandleDialogueBoxClose;
@@ -59,9 +90,9 @@ public class HUDBehavior : MonoBehaviour
         DayCycleManager.OnDayPhaseWantsToShowHouseSceneDayTime -= ShowHouseSceneDayTime;
         DayCycleManager.OnDayPhaseWantsToHideHouseSceneDayTime -= HideHouseSceneDayTime;
 
-         DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime -= ShowHouseSceneNightTime;
-         DayCycleManager.OnDayPhaseWantsToHideHouseSceneNightTime -= HideHouseSceneNightTime;
-         DayCycleManager.OnDayPhaseWantsInitializePlayerName -= ShowPromptMessage;
+        DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime -= ShowHouseSceneNightTime;
+        DayCycleManager.OnDayPhaseWantsToHideHouseSceneNightTime -= HideHouseSceneNightTime;
+        DayCycleManager.OnDayPhaseWantsInitializePlayerName -= ShowPromptMessage;
         DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime -= ShowHouseSceneNightTime;
         DayCycleManager.OnDayPhaseWantsToShowRewardsScreen -= ShowRewardsScreen;
         DayCycleManager.OnDayPhaseWantsToHideRewardsScreen -= HideRewardsScreen;
@@ -76,20 +107,36 @@ public class HUDBehavior : MonoBehaviour
         {
             return;
         }
+        
 
         inventoryUI.SetActive(!inventoryUI.activeSelf);
+
+        if (inventoryUI.activeSelf)
+        {
+            //play the inventory open sound effect
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiInventoryOpenClip, inventoryUI.transform, false, 0f, 0f);
+        }
+        else
+        {
+            //play the inventory close sound effect
+            SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiInventoryCloseClip, inventoryUI.transform, false, 0f, 0f);
+        }
+
     }
 
     public void HandleDialogueBoxOpen()
     {
         //disable the inventory button when the dialogue box is open
         inventoryButton.interactable = false;
+
+        
     }
 
     public void HandleDialogueBoxClose()
     {
         //enable the inventory button when the dialogue box is closed
         inventoryButton.interactable = true;
+
     }
 
     public void ShowInfoCard()

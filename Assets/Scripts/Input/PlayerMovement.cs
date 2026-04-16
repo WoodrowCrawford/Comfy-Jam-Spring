@@ -59,11 +59,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
+        bool isMoving = canMove && moveInput != Vector2.zero;
+
         if (canMove)
         {
             myRigidBody.linearVelocity = moveInput * moveSpeed;
             playerAnimator.SetFloat("MoveX", moveInput.x);
-            playerAnimator.SetBool("IsMoving", moveInput != Vector2.zero);
+            playerAnimator.SetBool("IsMoving", isMoving);
+
+            if (isMoving)
+            {
+                PlayMoveSound();
+            }
+            else
+            {
+                StopMoveSound();
+            }
 
           
             if (moveInput.x < 0f)
@@ -75,10 +86,13 @@ public class PlayerMovement : MonoBehaviour
                 spriteRenderer.flipX = false;
             }
         }
+        
         else
         {
             myRigidBody.linearVelocity = Vector2.zero;
             playerAnimator.SetBool("IsMoving", false);
+            StopMoveSound();
+           
         }
     }
 
@@ -107,4 +121,28 @@ public class PlayerMovement : MonoBehaviour
     {
         StartCoroutine(PlayPickUpAnimation());
     }
+
+    public void PlayMoveSound()
+    {
+        //first check to see if this clip is already playing, and if it is, we don't want to play it again
+        if (SoundManager.instance.IsSoundFXClipPlaying(SoundManager.instance.walkGrassClip))
+        {
+            return;
+        }
+
+        else
+        {
+            SoundManager.instance.PlaySoundFXClipAtSetVolume(SoundManager.instance.soundFXObject, SoundManager.instance.walkGrassClip, transform, true, 0f, 0f, 0.4f);
+        }
+    }
+
+    void StopMoveSound()
+    {
+        if (SoundManager.instance.IsSoundFXClipPlaying(SoundManager.instance.walkGrassClip))
+        {
+            SoundManager.instance.StopSoundFXClip(SoundManager.instance.walkGrassClip);
+        }
+    }
+
+    
 }
