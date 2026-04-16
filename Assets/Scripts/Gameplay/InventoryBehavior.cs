@@ -32,21 +32,33 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
         DayCycleManager.OnNewDay -= ClearInventory;
     }
 
-    private void HandleItemPickup(GameObject itemData)
+    private void HandleItemPickup(GameObject itemToPickUp)
     {
-        if (itemData == null)
+        if (itemToPickUp == null)
         {
             return;
         }
 
         // Keep inventory items independent from scene items.
-        GameObject inventoryItem = Instantiate(itemData);
+        GameObject inventoryItem = Instantiate(itemToPickUp);
         PrepareInventoryItem(inventoryItem);
         bool wasAdded = AddItemToInventory(inventoryItem);
 
         if (wasAdded)
         {
-            Destroy(itemData);
+
+           //if we picked up a bug, we want to play the bug catch sound effect
+            if(itemToPickUp.GetComponent<ItemBehavior>().ItemData.Category == ItemData.ItemCategory.Bug)
+            {
+                SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.bugCatchClip1, itemToPickUp.transform, false, 0f, 0f);
+            }
+
+            else if(itemToPickUp.GetComponent<ItemBehavior>().ItemData.Category == ItemData.ItemCategory.Plant)
+            {
+                SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.pickHerbClip1, itemToPickUp.transform, false, 0f, 0f);
+            }
+            
+            Destroy(itemToPickUp);
 
             //fire an event to update the player weekly points when they pick up an item
             OnItemSuccessfullyAddedToInventory?.Invoke(inventoryItem);
@@ -54,7 +66,7 @@ public class InventoryBehavior : MonoBehaviour, IPointerClickHandler
         else
         {
             Destroy(inventoryItem);
-            Debug.Log("Inventory full, could not pick up: " + itemData.name);
+            Debug.Log("Inventory full, could not pick up: " + itemToPickUp.name);
         }
     }
 

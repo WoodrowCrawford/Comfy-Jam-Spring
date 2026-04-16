@@ -16,6 +16,6 @@ MonoBehaviour:
   itemDescription: 
   itemIcon: {fileID: 21300000, guid: 5fb808afd6b67476783920abca124c31, type: 3}
   itemPoints: 3
-  itemCategory: 0
+  itemCategory: 4
   powerupType: 0
   powerAmount: 1
