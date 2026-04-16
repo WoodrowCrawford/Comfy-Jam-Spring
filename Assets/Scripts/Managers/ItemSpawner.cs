@@ -15,6 +15,8 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] List<SpawnableItem> itemsToSpawn = new List<SpawnableItem>();
     [SerializeField] int totalItems = 10;
     [SerializeField] Collider2D spawnArea;
+    [SerializeField] private LayerMask itemLayer;
+    [SerializeField] float spawnRadius = 0.5f;
 
     void Start()
     {
@@ -23,43 +25,57 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnItems()
     {
-        Bounds bounds = spawnArea.bounds;
-        float cellSize = 2f;
-        int columns = Mathf.FloorToInt(bounds.size.x / cellSize);
-        int rows = Mathf.FloorToInt(bounds.size.y / cellSize);
+        UnityEngine.Tilemaps.Tilemap tilemap = spawnArea.GetComponent<UnityEngine.Tilemaps.Tilemap>();
+        if (tilemap == null) { Debug.LogError("SpawnArea must be a Tilemap!"); return; }
 
-        List<Vector2> gridPoints = new List<Vector2>();
-
-        for (int x = 0; x < columns; x++)
-        {
-            for (int y = 0; y < rows; y++)
-            {
-                float xPos = bounds.min.x + (x * cellSize) + (cellSize / 2);
-                float yPos = bounds.min.y + (y * cellSize) + (cellSize / 2);
-
-                xPos += Random.Range(-cellSize / 4, cellSize / 4);
-                yPos += Random.Range(-cellSize / 4, cellSize / 4);
-
-                gridPoints.Add(new Vector2(xPos, yPos));
-            }
-        }
-
-        for (int i = 0; i < gridPoints.Count; i++)
-        {
-            Vector2 temp = gridPoints[i];
-            int randomIndex = Random.Range(i, gridPoints.Count);
-            gridPoints[i] = gridPoints[randomIndex];
-            gridPoints[randomIndex] = temp;
-        }
+        BoundsInt bounds = tilemap.cellBounds;
+        int spawnedCount = 0;
+        int maxAttempts = totalItems * 50;
+        int attempts = 0;
 
         int totalWeight = 0;
         foreach (var item in itemsToSpawn) totalWeight += item.weight;
 
-        int limit = Mathf.Min(totalItems, gridPoints.Count);
-        for (int i = 0; i < limit; i++)
+        while (spawnedCount < totalItems && attempts < maxAttempts)
         {
-            GameObject selectedPrefab = GetWeightedItem(totalWeight);
-            Instantiate(selectedPrefab, gridPoints[i], Quaternion.identity);
+            attempts++;
+
+            int x = Random.Range(bounds.xMin, bounds.xMax);
+            int y = Random.Range(bounds.yMin, bounds.yMax);
+            Vector3Int cellPos = new Vector3Int(x, y, 0);
+
+            if (tilemap.HasTile(cellPos))
+            {
+                bool isEdge = !tilemap.HasTile(cellPos + Vector3Int.up) ||
+                              !tilemap.HasTile(cellPos + Vector3Int.down) ||
+                              !tilemap.HasTile(cellPos + Vector3Int.left) ||
+                              !tilemap.HasTile(cellPos + Vector3Int.right);
+
+                if (!isEdge)
+                {
+                    Vector3 worldPos = tilemap.GetCellCenterWorld(cellPos);
+
+                    if (!Physics2D.OverlapCircle(worldPos, spawnRadius, itemLayer))
+                    {
+                        GameObject selectedPrefab = GetWeightedItem(totalWeight);
+                        if (selectedPrefab != null)
+                        {
+                            Instantiate(selectedPrefab, new Vector3(worldPos.x, worldPos.y, 0), Quaternion.identity);
+                            spawnedCount++;
+                        }
+                    }
+                }
+            }
+        }
+        Debug.Log($"Tilemap Spawner: {spawnedCount} items in {attempts} attempts.");
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (spawnArea != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(spawnArea.bounds.center, spawnArea.bounds.size);
         }
     }
 
@@ -80,7 +96,6 @@ public class ItemSpawner : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Restart Key Pressed!");
             GameObject[] oldItems = GameObject.FindGameObjectsWithTag("Herb");
             foreach (GameObject item in oldItems)
             {

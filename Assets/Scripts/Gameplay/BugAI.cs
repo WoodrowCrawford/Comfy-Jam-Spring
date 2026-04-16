@@ -6,14 +6,9 @@ public class BugAI : MonoBehaviour
     [SerializeField] float maxSpeed = 6f;
     float moveSpeed;
     Vector2 moveDirection;
-    float screenBoundX;
-    float screenBoundY;
 
     void Start()
     {
-        screenBoundX = Camera.main.orthographicSize * Camera.main.aspect;
-        screenBoundY = Camera.main.orthographicSize;
-
         moveSpeed = Random.Range(minSpeed, maxSpeed);
     }
 
@@ -31,10 +26,12 @@ public class BugAI : MonoBehaviour
     {
         transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
 
-        float destructionMargin = BugManager.spawnBuffer + 10f;
+        Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
 
-        if (Mathf.Abs(transform.position.x) > screenBoundX + destructionMargin ||
-            Mathf.Abs(transform.position.y) > screenBoundY + destructionMargin)
+        bool isTooFar = screenPoint.x < -0.8f || screenPoint.x > 1.8f ||
+                        screenPoint.y < -0.8f || screenPoint.y > 1.8f;
+
+        if (isTooFar)
         {
             Destroy(gameObject);
         }
