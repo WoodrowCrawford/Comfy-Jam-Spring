@@ -62,6 +62,15 @@ public class QuestUIBehavior : MonoBehaviour
             bool currentState = questPanel.activeSelf;
             questPanel.SetActive(!currentState);
             Debug.Log("Quest Panel toggled to: " + !currentState);
+
+            if(questPanel.activeSelf)
+            {
+                SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.listOpenClip2, questPanel.transform, false, 0f, 0f);
+            }
+            else
+            {
+                SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.listCloseClip, questPanel.transform, false, 0f, 0f);
+            }
         }
     }
 }
