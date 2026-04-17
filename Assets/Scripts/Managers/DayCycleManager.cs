@@ -160,6 +160,9 @@ public class DayCycleManager : MonoBehaviour
 
         //here the player can explore the forest.
 
+        //play the exploration music
+        SoundManager.instance.PlayMusicClip(SoundManager.instance.musicObject, SoundManager.instance.explorationMusicClip, SoundManager.instance.musicObject.transform, true, 0f, 0f);
+
         //when they want to end the day they can.
 
         yield break;
@@ -167,6 +170,10 @@ public class DayCycleManager : MonoBehaviour
 
     public IEnumerator EndDay()
     {
+        //stop the explore forest music
+        SoundManager.instance.StopSoundFXClip(SoundManager.instance.explorationMusicClip);
+
+
         //show the evening house scene
         OnDayPhaseWantsToShowHouseSceneNightTime?.Invoke();
 

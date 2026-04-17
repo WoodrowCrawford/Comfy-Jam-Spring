@@ -66,6 +66,20 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-2715411330873171391
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: aec08ffa4f47643a99980f53ada12bc6
+  m_EffectName: Receive
+  m_MixLevel: 0edcd8b128ebf47449a8e315c678adaa
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-1487457939481577457
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -95,7 +109,15 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 3f6a2a83e57da4b4bbb472d3973c3128
+    name: MasterVolume
+  - guid: 82ac97f38a41f49dd8153c3c0a245cd5
+    name: MusicVolume
+  - guid: adf4f5f33c98a4b279bb60545abab807
+    name: SFXVolume
+  - guid: 9c03e8f46562348899796944c13755db
+    name: UIVolume
   m_AudioMixerGroupViews:
   - guids:
     - 70fcf9429b4464433b373495d1b7cf26
@@ -171,3 +193,17 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &7359072000496512957
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 450b63c5064b74d678a6608493c35ca1
+  m_EffectName: Send
+  m_MixLevel: 469a4cfe194ff4678ac2d73ddb8c1e46
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0

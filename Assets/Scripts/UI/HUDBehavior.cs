@@ -148,6 +148,9 @@ public class HUDBehavior : MonoBehaviour
 
         infoCard.SetActive(true);
         hasShownIntroCard = true;
+
+        //play the intro card music
+        SoundManager.instance.PlayMusicClip(SoundManager.instance.musicObject, SoundManager.instance.introCardMusicClip, SoundManager.instance.musicObject.transform, true, 0f, 0f);
     }
 
     public void HideInfoCard()
@@ -158,6 +161,9 @@ public class HUDBehavior : MonoBehaviour
         }
 
         infoCard.SetActive(false);
+
+        //stop the intro card music
+        SoundManager.instance.StopSoundFXClip(SoundManager.instance.introCardMusicClip);
     }
 
     public void ShowPromptMessage()
@@ -174,22 +180,38 @@ public class HUDBehavior : MonoBehaviour
     {
         houseScene.GetComponent<Image>().sprite = houseSceneDay;
         houseScene.SetActive(true);
+
+       
+        //play the morning scene music
+        SoundManager.instance.PlayMusicClip(SoundManager.instance.musicObject, SoundManager.instance.morningSceneMusicClip, SoundManager.instance.musicObject.transform, true, 0f, 0f);
+
+        
     }
 
     public void HideHouseSceneDayTime()
     {
         houseScene.SetActive(false);
+
+        //stop the morning scene music
+        SoundManager.instance.StopSoundFXClip(SoundManager.instance.morningSceneMusicClip);
     }
 
     public void ShowHouseSceneNightTime()
     {
         houseScene.GetComponent<Image>().sprite = houseSceneNight;
         houseScene.SetActive(true);
+
+        //play the evening scene music
+        SoundManager.instance.PlayMusicClip(SoundManager.instance.musicObject, SoundManager.instance.eveningSceneMusicClip, SoundManager.instance.musicObject.transform, true, 0f, 0f);
+
     }
 
     public void HideHouseSceneNightTime()
     {
         houseScene.SetActive(false);
+
+        //stop the evening scene music
+        SoundManager.instance.StopSoundFXClip(SoundManager.instance.eveningSceneMusicClip);
     }
 
     public void ShowRewardsScreen()

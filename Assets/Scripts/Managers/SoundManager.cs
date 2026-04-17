@@ -11,8 +11,18 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
 
     [Header("Sound types")]
+    public AudioSource musicObject;
     public AudioSource soundFXObject;
     public AudioSource uiSoundObject;
+
+
+    [Header("Music Clips")]
+    public AudioClip startMenuMusicClip;
+    public AudioClip morningSceneMusicClip;
+    public AudioClip introCardMusicClip;
+    public AudioClip explorationMusicClip;
+    public AudioClip eveningSceneMusicClip;
+
 
 
     [Header("UI Clips")]
@@ -93,6 +103,67 @@ public class SoundManager : MonoBehaviour
 
 
    
+
+    public void PlayMusicClip(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float spread)
+    {
+
+        //check if there is already a music object in the scene and if there is, stop it before playing the new music to avoid multiple music objects playing at once
+        GameObject existingMusicObject = GameObject.Find("MusicObject(Clone)");
+        if(existingMusicObject != null)
+        {
+            //destroy the existing music object before we play the new music to avoid multiple music objects playing at once
+            Destroy(existingMusicObject);
+        }
+        
+        //destroy the existing music object before we play the new music to avoid multiple music objects playing
+        Debug.Log("A music object is already playing, stopping it before playing the new music.");
+        
+
+        Debug.Log("Playing music clip: " + audioClip.name);
+
+
+        //spawn in game object
+        AudioSource audioSource = Instantiate(audioSourceType, spawnTransform.position, Quaternion.identity);
+
+      
+
+        //if the sound type is ui sound
+        if (audioSourceType == uiSoundObject)
+        {
+            //make it so that the audio source doesnt stop when the game pauses
+            audioSource.ignoreListenerPause = true;
+        }
+
+
+       
+        //assign audio clip
+        audioSource.clip = audioClip;
+
+        //assign the audio loop
+        audioSource.loop = loop;
+
+        //assign the audio spatial blend
+        audioSource.spatialBlend = spatialBlend;
+        audioSource.spread = spread;
+
+        //play sound
+        audioSource.Play();
+
+
+        //if loop is not enabled
+        if (!loop)
+        {
+            //get length of sound FX clip
+            float clipLength = audioSource.clip.length;
+
+            //destroy the clip after it is done playing
+            Destroy(audioSource.gameObject, clipLength);
+        }
+        else
+        {
+            return;
+        }
+    }
 
     
 
@@ -194,6 +265,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
+   
 
     public void PlaySoundFXClipAtSetVolumeAndRange(AudioSource audioSourceType, AudioClip audioClip, Transform spawnTransform, bool loop, float spatialBlend, float spread, float minRange, float maxRange, float volume)
     {
@@ -356,6 +429,27 @@ public class SoundManager : MonoBehaviour
                 //the sound is playing
                 return true;
             } 
+        }
+
+        //the sound is not playing
+        return false;
+    }
+
+
+    public bool IsSoundObjectPlaying(AudioSource audioSourceType)
+    {
+        //get a list of all the audio sources
+        AudioSource[] audioSources = FindObjectsByType<AudioSource>();
+
+        //loop through all the audio sources
+        foreach (AudioSource audioSource in audioSources)
+        {
+            //check if the audio source is the same as the selected audio source and if it is playing
+            if (audioSource == audioSourceType && audioSource.isPlaying)
+            {
+                //the sound is playing
+                return true;
+            }
         }
 
         //the sound is not playing
