@@ -12,7 +12,12 @@ public class ItemPickup : MonoBehaviour
     [SerializeField] float pickupDistance = 2f;
     void Update()
     {
-        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame && !DialogueUIBehavior.IsOpen)
+        if (HUDBehavior.IsGameplayInputBlocked)
+        {
+            return;
+        }
+
+        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Pointer.current.position.ReadValue());
 
@@ -25,7 +30,7 @@ public class ItemPickup : MonoBehaviour
             
         }
 
-        else if(Keyboard.current.eKey.wasPressedThisFrame && !DialogueUIBehavior.IsOpen)
+        else if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             
             CheckDistanceAndPickUp();

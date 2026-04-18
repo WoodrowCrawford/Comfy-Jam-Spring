@@ -8,10 +8,14 @@ public class QuestUIBehavior : MonoBehaviour
     [SerializeField] Transform listContainer;
     [SerializeField] GameObject questPanel;
 
+    public static bool IsQuestPanelOpen { get; private set; }
+
     private void OnEnable()
     {
         QuestManager.OnQuestUpdated += RefreshUI;
         DayCycleManager.OnNewDay += RefreshUI;
+
+        IsQuestPanelOpen = questPanel != null && questPanel.activeInHierarchy;
 
         RefreshUI();
     }
@@ -19,6 +23,7 @@ public class QuestUIBehavior : MonoBehaviour
     private void OnDisable()
     {
         QuestManager.OnQuestUpdated -= RefreshUI;
+        IsQuestPanelOpen = false;
     }
 
     public void RefreshUI()
@@ -47,6 +52,7 @@ public class QuestUIBehavior : MonoBehaviour
         if (questPanel != null)
         {
             questPanel.SetActive(show);
+            IsQuestPanelOpen = show;
             Debug.Log("Quest Panel set to: " + show);
         }
         else
@@ -61,6 +67,7 @@ public class QuestUIBehavior : MonoBehaviour
         {
             bool currentState = questPanel.activeSelf;
             questPanel.SetActive(!currentState);
+            IsQuestPanelOpen = questPanel.activeSelf;
             Debug.Log("Quest Panel toggled to: " + !currentState);
 
             if(questPanel.activeSelf)

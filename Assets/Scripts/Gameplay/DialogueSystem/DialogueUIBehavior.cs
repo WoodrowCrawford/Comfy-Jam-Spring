@@ -193,7 +193,9 @@ public class DialogueUIBehavior : MonoBehaviour
     
 
             //Waits until the given input has been pressed before continuing using the new input system
-            yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame);
+                yield return new WaitUntil(() =>
+                    (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame) ||
+                    (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame));
 
             
         }

@@ -12,34 +12,57 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Button startButton;
 
+    private Coroutine playSceneMusicCoroutine;
+
+    private void HandleStartButtonClicked()
+    {
+        SceneManager.LoadScene("ElleScene");
+    }
+
+    private void HandleStartButtonSound()
+    {
+        if (SoundManager.instance == null || startButton == null)
+        {
+            return;
+        }
+
+        SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiClickClip1, startButton.transform, false, 0f, 0f);
+    }
+
     void Awake()
     {
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
         else
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
-        CheckCurrentScene();
     }
 
     private void OnEnable()
     {
-        // Find the start button in the scene and add a listener to it to start the game when clicked.
-        startButton = GameObject.Find("PlayButton")?.GetComponent<Button>();
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
 
-        startButton?.onClick.AddListener(() => SceneManager.LoadScene("ElleScene"));
-        startButton?.onClick.AddListener(() => SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiClickClip1, startButton.transform, false, 0f, 0f));
+    private void Start()
+    {
+        HandleSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     private void OnDisable()
     {
-        startButton?.onClick.RemoveListener(() => SceneManager.LoadScene("ElleScene"));
-        startButton?.onClick.RemoveListener(() => SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiClickClip1, startButton.transform, false, 0f, 0f));
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+        UnregisterStartButton();
+
+        if (playSceneMusicCoroutine != null)
+        {
+            StopCoroutine(playSceneMusicCoroutine);
+            playSceneMusicCoroutine = null;
+        }
     }
 
     // A function that can change the scene.
@@ -48,20 +71,53 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void CheckCurrentScene()
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        string sceneName = SceneManager.GetActiveScene().name;
+        RegisterStartButton();
+
+        if (playSceneMusicCoroutine != null)
+        {
+            StopCoroutine(playSceneMusicCoroutine);
+        }
+
+        playSceneMusicCoroutine = StartCoroutine(PlaySceneMusicWhenReady(scene.name));
+    }
+
+    private void RegisterStartButton()
+    {
+        UnregisterStartButton();
+
+        startButton = GameObject.Find("PlayButton")?.GetComponent<Button>();
+        startButton?.onClick.AddListener(HandleStartButtonClicked);
+        startButton?.onClick.AddListener(HandleStartButtonSound);
+    }
+
+    private void UnregisterStartButton()
+    {
+        startButton?.onClick.RemoveListener(HandleStartButtonClicked);
+        startButton?.onClick.RemoveListener(HandleStartButtonSound);
+        startButton = null;
+    }
+
+    private IEnumerator PlaySceneMusicWhenReady(string sceneName)
+    {
         Debug.Log("Current scene is: " + sceneName);
 
-        if (SceneManager.GetActiveScene().name == "MainMenuScene")
-        {
-
-            SoundManager.instance.PlayMusicClip(SoundManager.instance.musicObject, SoundManager.instance.startMenuMusicClip, SoundManager.instance.musicObject.transform, true, 0f, 0f);
-        }
-        else
+        if (sceneName != "MainMenuScene")
         {
             Debug.Log("Current scene is not: " + sceneName);
+            playSceneMusicCoroutine = null;
+            yield break;
         }
 
+        yield return null;
+
+        while (SoundManager.instance == null)
+        {
+            yield return null;
+        }
+
+        SoundManager.instance.PlayMusicClip(SoundManager.instance.musicObject, SoundManager.instance.startMenuMusicClip, SoundManager.instance.musicObject.transform, true, 0f, 0f);
+        playSceneMusicCoroutine = null;
     }
 }

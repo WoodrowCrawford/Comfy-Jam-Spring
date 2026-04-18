@@ -231,7 +231,7 @@ public class RewardsBehavior : MonoBehaviour
         }
 
        
-        yield return new WaitUntil(() => Keyboard.current.anyKey.wasPressedThisFrame);
+        yield return new WaitUntil(() => Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame);
 
         //then we can hide this rewards screen and show the next scene, which we will need to create
         OnRewardsScreenComplete?.Invoke();

@@ -25,15 +25,17 @@ public class TypewritterEffectBehavior : MonoBehaviour
 
         while (charIndex < textToType.Length)
         {
+            bool isSpacePressed = Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
+
             //If the space key is pressed
-            if (Keyboard.current.spaceKey.isPressed)
+            if (isSpacePressed)
             {
                 //make the typewriter speed faster
                 _typewritterSpeed = 200f;
             }
 
             //else if it is not pressed
-            else if (!Keyboard.current.spaceKey.isPressed)
+            else
             {
                 //set the typewritter speed to the default speed
                 _typewritterSpeed = 50f;

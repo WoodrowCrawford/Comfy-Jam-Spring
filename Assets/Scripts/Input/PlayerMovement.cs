@@ -59,9 +59,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        bool isMoving = canMove && moveInput != Vector2.zero;
+        bool isMovementBlocked = HUDBehavior.IsGameplayInputBlocked;
+        bool shouldMove = canMove && !isMovementBlocked;
+        bool isMoving = shouldMove && moveInput != Vector2.zero;
 
-        if (canMove)
+        if (shouldMove)
         {
             myRigidBody.linearVelocity = moveInput * moveSpeed;
             playerAnimator.SetFloat("MoveX", moveInput.x);
@@ -103,6 +105,11 @@ public class PlayerMovement : MonoBehaviour
 
     void EnableMovement()
     {
+        if (HUDBehavior.IsGameplayInputBlocked)
+        {
+            return;
+        }
+
         canMove = true;
     }
 

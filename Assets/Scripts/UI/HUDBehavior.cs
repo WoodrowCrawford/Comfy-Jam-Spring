@@ -34,6 +34,50 @@ public class HUDBehavior : MonoBehaviour
     [Header("Bools")]
     public static bool hasShownIntroCard = false;
     public static bool IsRewardsScreenActive = false;
+    public static HUDBehavior Instance { get; private set; }
+
+    public static bool IsGameplayInputBlocked
+    {
+        get
+        {
+            if (DialogueUIBehavior.IsOpen || QuestUIBehavior.IsQuestPanelOpen)
+            {
+                return true;
+            }
+
+            if (Instance == null)
+            {
+                return false;
+            }
+
+            return Instance.IsHudBlockingGameplayInput();
+        }
+    }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
+    private bool IsHudBlockingGameplayInput()
+    {
+        return IsActive(inventoryUI) ||
+               IsActive(infoCard) ||
+               IsActive(promptMessage) ||
+               IsActive(rewardsScreen) ||
+               IsActive(wardrobeUI);
+    }
+
+    private static bool IsActive(GameObject target)
+    {
+        return target != null && target.activeInHierarchy;
+    }
 
     void OnEnable()
     {
@@ -80,6 +124,11 @@ public class HUDBehavior : MonoBehaviour
 
     void OnDisable()
     {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+
         introCardExitButton.onClick.RemoveAllListeners();
 
 
