@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,10 +8,16 @@ using UnityEngine.InputSystem;
 
 public class RewardsBehavior : MonoBehaviour
 {
-
     public delegate void RewardsEventHandler();
     public static event RewardsEventHandler OnRewardsScreenComplete;
+    public delegate void HatRewardSelectedHandler(Sprite selectedHat);
+    public static event HatRewardSelectedHandler OnHatRewardSelected;
+
+
    
+    [Header("Rewards Text")]
+    [SerializeField] private TMP_Text rewardsHeaderText;
+    [SerializeField] private TMP_Text playerPointsText;
 
     [Header("Progress Bar")]
     [SerializeField] private Slider progressBarSlider;
@@ -19,13 +26,15 @@ public class RewardsBehavior : MonoBehaviour
     [SerializeField] private int maxIncreasePerOverflow = 5;
 
 
-    [Header("RewardsText")]
-    [SerializeField] private TMP_Text playerPointsText;
-
-
+    [Header("Rewards")]
+    [SerializeField] private GameObject hatRewardOptionsParent;
+    [SerializeField] private GameObject hatRewardButtonPrefab;
+    [SerializeField] private Sprite redHatSprite;
+    [SerializeField] private Sprite blueHatSprite;
 
 
     private Coroutine fillCoroutine;
+    private readonly List<Button> spawnedHatRewardButtons = new();
 
 
     private void OnEnable()
@@ -33,13 +42,29 @@ public class RewardsBehavior : MonoBehaviour
         HUDBehavior.OnRewardsScreenOpen += StartWeeklyRewardCalculation;
     }
 
+
+
     private void OnDisable()
     {
         HUDBehavior.OnRewardsScreenOpen -= StartWeeklyRewardCalculation;
-    }
-    
 
-   //function that fills the progress bar over time depending on the time given and the points the player has
+        foreach (Button spawnedHatRewardButton in spawnedHatRewardButtons)
+        {
+            if (spawnedHatRewardButton == null)
+            {
+                continue;
+            }
+
+            spawnedHatRewardButton.onClick.RemoveAllListeners();
+        }
+
+        spawnedHatRewardButtons.Clear();
+    }
+
+
+
+
+    //function that fills the progress bar over time depending on the time given and the points the player has
     private IEnumerator FillProgressBar(int pointsToFill)
     {
        //create a local variable to keep track of the current points filled, the max points for the current rewards level, and the total points to fill
@@ -156,6 +181,8 @@ public class RewardsBehavior : MonoBehaviour
     //this function will start the process of calculating the rewards for the player based on the points they have
     public IEnumerator StartWeeklyRewardCalculationSetUp()
     {
+        //set the rewards header text to "End of week report"
+        rewardsHeaderText.text = "End of week report";
 
         //first we want to hide the rewards text and the progress bar
         playerPointsText.gameObject.SetActive(false);
@@ -211,7 +238,43 @@ public class RewardsBehavior : MonoBehaviour
 
         yield break;
     }
+    
 
+    //A function to handle when a hat button is clicked, which will invoke the OnHatRewardSelected event with the selected hat sprite
+    private void HandleHatButtonClicked(Sprite hatSprite)
+    {
+        if (hatSprite == null)
+        {
+            Debug.LogError("Hat sprite is null!");
+            return;
+        }
+
+        OnHatRewardSelected?.Invoke(hatSprite);
+
+        //here we would set the player's hat for the day based on which button they clicked
+        if (hatSprite == redHatSprite)
+        {
+            Debug.Log("Player chose the red hat reward!");
+        }
+        else if (hatSprite == blueHatSprite)
+        {
+            Debug.Log("Player chose the blue hat reward!");
+        }
+    }
+
+
+    //A function to create a new hat reward button in the rewards screen for a given hat sprite, and add a listener to the button to handle when it is clicked
+    public void CreateHatRewardButton(Sprite hatSprite)
+    {
+        GameObject spawnedButtonObject = Instantiate(hatRewardButtonPrefab, hatRewardOptionsParent.transform);
+        Button spawnedHatRewardButton = spawnedButtonObject.GetComponent<Button>();
+        spawnedButtonObject.GetComponent<Image>().preserveAspect = true;
+
+        spawnedButtonObject.transform.GetChild(0).GetComponent<Image>().sprite = hatSprite;
+
+        spawnedHatRewardButton.onClick.AddListener(() => HandleHatButtonClicked(hatSprite));
+        spawnedHatRewardButtons.Add(spawnedHatRewardButton);
+    }
 
 
     //A function that will allow the player to choose a reward from the rewards screen
@@ -219,6 +282,19 @@ public class RewardsBehavior : MonoBehaviour
     public IEnumerator ChooseHatReward()
     {
         Debug.Log("Player can choose a hat reward!");
+
+        //change the rewards header text to "Choose your hat reward!"
+        rewardsHeaderText.text = "Choose your hat!";
+
+        //hide the points text and the progress bar
+        playerPointsText.gameObject.SetActive(false);
+        progressBarSlider.gameObject.SetActive(false);
+
+        
+        CreateHatRewardButton(redHatSprite);
+        CreateHatRewardButton(blueHatSprite);
+
+        
         yield break;
     }
 

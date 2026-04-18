@@ -15,6 +15,8 @@ public class DayCycleManager : MonoBehaviour
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToHideHouseSceneDayTime;
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowHouseSceneNightTime;
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToHideHouseSceneNightTime;
+    public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowWardrobeUI;
+    public static event DayPhaseChangeEventHandler OnDaypPhaseWantsToHideWardrobeUI;
 
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToShowRewardsScreen;
     public static event DayPhaseChangeEventHandler OnDayPhaseWantsToHideRewardsScreen;
@@ -47,6 +49,8 @@ public class DayCycleManager : MonoBehaviour
     
 
     private DayPhase previousDayPhase;
+
+    private bool playerPickedHatForTheDay = false;
 
 
 
@@ -105,6 +109,8 @@ public class DayCycleManager : MonoBehaviour
     public IEnumerator StartDay()
     {
         
+        //set the player picked hat for the day to false at the start of the day
+        playerPickedHatForTheDay = false;
 
         if(FindAnyObjectByType<PlayerBehavior>().PlayerName == string.Empty)
         {
@@ -141,6 +147,20 @@ public class DayCycleManager : MonoBehaviour
             yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
         }
 
+
+        yield return StartCoroutine(PickHatForTheDay());
+    }
+
+    public IEnumerator PickHatForTheDay()
+    {
+        //this is when the player gets to pick the hat for the day
+
+        //fire an event to show the hat selection UI, which we will need to create
+        OnDayPhaseWantsToShowWardrobeUI?.Invoke();
+
+        yield return new WaitUntil(() => WardrobeBehavior.playerPickedHatForTheDay == true);
+        OnDaypPhaseWantsToHideWardrobeUI?.Invoke();
+        WardrobeBehavior.playerPickedHatForTheDay = false;
 
         yield return StartCoroutine(ExploreForest());
     }
@@ -212,14 +232,15 @@ public class DayCycleManager : MonoBehaviour
 
         //wait until the dialogue is done
         yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+        OnDayPhaseWantsToHideHouseSceneNightTime?.Invoke();
 
         //then show the rewards screen, which we will need to create
         OnDayPhaseWantsToShowRewardsScreen?.Invoke();
 
 
-        yield return StartCoroutine(StartDay());
+        //yield return StartCoroutine(StartDay());
     
-        //wait unitl the rewards screen is done showing
+        //wait until the rewards screen is done showing
         yield return new WaitUntil(() => !HUDBehavior.IsRewardsScreenActive);
 
 

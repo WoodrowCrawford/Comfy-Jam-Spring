@@ -19,6 +19,7 @@ public class HUDBehavior : MonoBehaviour
     [SerializeField] private GameObject infoCard;
     [SerializeField] private GameObject promptMessage;
     [SerializeField] private GameObject rewardsScreen;
+    [SerializeField] private GameObject wardrobeUI;
 
     [Header("Buttons")]
     [SerializeField] private Button toggleQuestButton;
@@ -40,16 +41,13 @@ public class HUDBehavior : MonoBehaviour
         //Since we are changing scenes a lot, we need to find the buttons in the scene and add listeners to them every time the scene changes, instead of just doing it once in Awake.
         introCardExitButton = System.Array.Find(
         infoCard.GetComponentsInChildren<Button>(true),
-        button => button.name == "CloseButton"
-);
+        button => button.name == "CloseButton");
+
         inventoryButton = GameObject.Find("ToggleInventoryButton")?.GetComponent<Button>();
         toggleQuestButton = GameObject.Find("ToggleQuestButton")?.GetComponent<Button>();
-
         
 
-
-
-
+        
 
         //First control the sounds for the buttons
         introCardExitButton.onClick.AddListener(() => SoundManager.instance.PlaySoundFXClip(SoundManager.instance.soundFXObject, SoundManager.instance.uiClickClip1, introCardExitButton.transform, false, 0f, 0f));
@@ -73,7 +71,11 @@ public class HUDBehavior : MonoBehaviour
         DayCycleManager.OnDayPhaseWantsToShowRewardsScreen += ShowRewardsScreen;
         DayCycleManager.OnDayPhaseWantsToHideRewardsScreen += HideRewardsScreen;
 
+        DayCycleManager.OnDayPhaseWantsToShowWardrobeUI += ShowWardrobeUI;
+        DayCycleManager.OnDaypPhaseWantsToHideWardrobeUI += HideWardrobeUI;
+
         RewardsBehavior.OnRewardsScreenComplete += HideRewardsScreen;
+
     }
 
     void OnDisable()
@@ -96,6 +98,8 @@ public class HUDBehavior : MonoBehaviour
         DayCycleManager.OnDayPhaseWantsToShowHouseSceneNightTime -= ShowHouseSceneNightTime;
         DayCycleManager.OnDayPhaseWantsToShowRewardsScreen -= ShowRewardsScreen;
         DayCycleManager.OnDayPhaseWantsToHideRewardsScreen -= HideRewardsScreen;
+        DayCycleManager.OnDayPhaseWantsToShowWardrobeUI -= ShowWardrobeUI;
+        DayCycleManager.OnDaypPhaseWantsToHideWardrobeUI -= HideWardrobeUI;
         RewardsBehavior.OnRewardsScreenComplete -= HideRewardsScreen;
     }
     
@@ -227,6 +231,18 @@ public class HUDBehavior : MonoBehaviour
     {
         rewardsScreen.SetActive(false);
         IsRewardsScreenActive = false;
+    }
+
+   
+
+    public void ShowWardrobeUI()
+    {
+        wardrobeUI.gameObject.SetActive(true);
+    }
+
+    public void HideWardrobeUI()
+    {
+        wardrobeUI.SetActive(false);
     }
 
 }
