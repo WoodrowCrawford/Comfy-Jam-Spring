@@ -164,7 +164,7 @@ RectTransform:
   m_GameObject: {fileID: 5596850487467733248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6895, y: 1.6895, z: 1.6895}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 205346597826371429}
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6759557948470510906, guid: c51e2f49918cd435884be64879ff97a7, type: 3}
+  m_Sprite: {fileID: -2936476781953024297, guid: db43a87e4d83743ba9bc3345c0868f83, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -381,8 +381,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 315.9, y: 81.5}
+  m_AnchoredPosition: {x: 0, y: 8.6}
+  m_SizeDelta: {x: 315.9, y: 149.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2161930829514282722
 CanvasRenderer:
@@ -412,7 +412,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Here is the story of a kid who needs to get things in the woods.
+  m_text: 'Mama and Papa are sending me out of the city to to stay with Grandpa for
+    the spring (they said it''s "tradition"). But a whole season is a long time,
+    and he lives so far away! I''m going to miss my friends... Atheril is all the
+    way up in the mountain, what do people do there for fun?
+
+    The last time we
+    visited, walking around was a little different, there''s so much dirt and stone
+    everywhere. I have to remember to use my W, A, S, D keys to walk around, and
+    right-click on things to pick them up. And Mama said to always wear a hat.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 990316b312686406591bee8c8ba48b51, type: 2}
   m_sharedMaterial: {fileID: -3701222829794677998, guid: 990316b312686406591bee8c8ba48b51, type: 2}
@@ -439,10 +449,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.95
-  m_fontSizeBase: 36
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
@@ -478,9 +488,9 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 33.731915, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}

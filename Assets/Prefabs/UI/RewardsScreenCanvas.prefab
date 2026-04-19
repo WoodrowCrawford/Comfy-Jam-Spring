@@ -54,8 +54,8 @@ MonoBehaviour:
   playerPointsText: {fileID: 8185974557727546392}
   progressBarSlider: {fileID: 8240761373456791039}
   fillTime: 10
-  maxPointsForFullRewards: 10
-  maxIncreasePerOverflow: 5
+  maxPointsForFullRewards: 50
+  maxIncreasePerOverflow: 30
   hatRewardOptionsParent: {fileID: 521734368564554338}
   hatRewardButtonPrefab: {fileID: 2255672406932525411, guid: d6319fc46b8744663aa8203fbb234379, type: 3}
   redHatSprite: {fileID: 21300000, guid: 0b3a334934c824810a460184ae372a24, type: 3}
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10
+  m_MaxValue: 50
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
