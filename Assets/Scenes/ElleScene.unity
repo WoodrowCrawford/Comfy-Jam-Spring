@@ -70517,6 +70517,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3121642027333085000, guid: a1a8c4a8814514e37a9ed80c5fd3f97c, type: 3}
+      propertyPath: redHatSprite
+      value: 
+      objectReference: {fileID: 6855201749064618047, guid: 4159b829e4c134e16affa8d06f5654ad, type: 3}
+    - target: {fileID: 3121642027333085000, guid: a1a8c4a8814514e37a9ed80c5fd3f97c, type: 3}
+      propertyPath: blueHatSprite
+      value: 
+      objectReference: {fileID: 6804609781361856973, guid: 12c64924d47b54c52b919b9294526a3c, type: 3}
     - target: {fileID: 6619491247706428631, guid: a1a8c4a8814514e37a9ed80c5fd3f97c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -71097,6 +71105,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5338722700446179695, guid: a6fd8dddfca154fa384ae23d98fd2744, type: 3}
+      propertyPath: redHatSprite
+      value: 
+      objectReference: {fileID: 6855201749064618047, guid: 4159b829e4c134e16affa8d06f5654ad, type: 3}
+    - target: {fileID: 5338722700446179695, guid: a6fd8dddfca154fa384ae23d98fd2744, type: 3}
+      propertyPath: blueHatSprite
+      value: 
+      objectReference: {fileID: 6804609781361856973, guid: 12c64924d47b54c52b919b9294526a3c, type: 3}
+    - target: {fileID: 5338722700446179695, guid: a6fd8dddfca154fa384ae23d98fd2744, type: 3}
+      propertyPath: greenHatSprite
+      value: 
+      objectReference: {fileID: -7430272445656905627, guid: db689b8be17f644c1a0cf83d6c376a4d, type: 3}
+    - target: {fileID: 5338722700446179695, guid: a6fd8dddfca154fa384ae23d98fd2744, type: 3}
+      propertyPath: playerAnimator
+      value: 
+      objectReference: {fileID: 920842913}
     - target: {fileID: 5489656132920255234, guid: a6fd8dddfca154fa384ae23d98fd2744, type: 3}
       propertyPath: m_Name
       value: WardrobeScreen

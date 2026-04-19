@@ -16,26 +16,11 @@ public class PlayerMovement : MonoBehaviour
 
     void OnEnable()
     {
-        PromptMessageBehavior.OnPromptMessageClicked += DisableMovement;
-        PromptMessageBehavior.OnPromptMessageClosed += EnableMovement;
-
-        DayCycleManager.OnDayPhaseWantsToShowInfoCard += DisableMovement;
-        DialogueUIBehavior.OnDialogueBoxOpen += DisableMovement;
-        DialogueUIBehavior.OnDialogueBoxClose += EnableMovement;
-
         ItemPickup.OnItemPickupAnimation += SetPickUpAnimation;
     }
 
     void OnDisable()
     {
-        PromptMessageBehavior.OnPromptMessageClicked -= DisableMovement;
-        PromptMessageBehavior.OnPromptMessageClosed -= EnableMovement;
-
-        DayCycleManager.OnDayPhaseWantsToShowInfoCard -= DisableMovement;
-        
-        DialogueUIBehavior.OnDialogueBoxOpen -= DisableMovement;
-        DialogueUIBehavior.OnDialogueBoxClose -= EnableMovement;
-
         ItemPickup.OnItemPickupAnimation -= SetPickUpAnimation;
     }
 
@@ -45,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerAnimator.SetBool("GreenHatPicked", true);
     }
 
     void FixedUpdate()
@@ -96,21 +82,6 @@ public class PlayerMovement : MonoBehaviour
             StopMoveSound();
            
         }
-    }
-
-    void DisableMovement()
-    {
-        canMove = false;
-    }
-
-    void EnableMovement()
-    {
-        if (HUDBehavior.IsGameplayInputBlocked)
-        {
-            return;
-        }
-
-        canMove = true;
     }
 
     public IEnumerator PlayPickUpAnimation()

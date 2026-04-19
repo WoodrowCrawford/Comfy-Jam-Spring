@@ -70,6 +70,7 @@ public class HUDBehavior : MonoBehaviour
         return IsActive(inventoryUI) ||
                IsActive(infoCard) ||
                IsActive(promptMessage) ||
+               IsActive(houseScene) ||
                IsActive(rewardsScreen) ||
                IsActive(wardrobeUI);
     }
