@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Tiger Lily
   itemDescription: 
-  itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  itemIcon: {fileID: 21300000, guid: 98bf365d7a4564e68987652aaae09d2e, type: 3}
   itemPoints: 5
   itemCategory: 3
   powerupType: 0
