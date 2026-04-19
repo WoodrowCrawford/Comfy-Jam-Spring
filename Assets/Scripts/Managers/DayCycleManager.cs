@@ -1,4 +1,5 @@
 using System.Collections;
+using NUnit.Framework;
 using UnityEngine;
 
 /// <summary>
@@ -29,8 +30,33 @@ public class DayCycleManager : MonoBehaviour
 
     [Header("Dialogue")]
     [SerializeField] private DialogueObjectBehavior startDayDialogue;
+    [SerializeField] private DialogueObjectBehavior pickHatDialogue;
+
+    [Header("Evening Dialogue list")]
+    [SerializeField] private DialogueObjectBehavior[] eveningDialogueDayVariations;
+    [SerializeField] private DialogueObjectBehavior playerReturnsHomeDialogue;
+
+    [Header("Collectible Dialogue")]
+    [SerializeField] private DialogueObjectBehavior[] grandpaCommentForAllCollectiblesVariations;
+    [SerializeField] private DialogueObjectBehavior[] grandpaCommentForSomeCollectiblesVariations;
+
+    [Header("Evening player options dialogue")]
+    [SerializeField] private DialogueObjectBehavior hasGrandpaExploredForestDialogue;
+    [SerializeField] private DialogueObjectBehavior lotOfThingsFoundDialogue;
+    [SerializeField] private DialogueObjectBehavior mamaDialogue;
+
+    [Header("End of Week More than 85 Percent Collected Dialogue")]
+    [SerializeField] private DialogueObjectBehavior[] endOfWeekDialogueFor85PercentCollectedVariations;
+
+    [Header("End of week less than 85 percent collected dialogue")]
+    [SerializeField] private DialogueObjectBehavior[] endOfWeekDialogueForLessThan85PercentCollectedVariations;
+
+    
+
+    
     [SerializeField] private DialogueObjectBehavior endDayDialogue;
     [SerializeField] private DialogueObjectBehavior weekendDayDialogue;
+    [SerializeField] private DialogueObjectBehavior endOfWeekDialogue;
 
     public enum DayPhase
     {
@@ -153,6 +179,11 @@ public class DayCycleManager : MonoBehaviour
 
     public IEnumerator PickHatForTheDay()
     {
+        //play the dialogue for picking the hat for the day
+        DialogueUIBehavior.instance.ShowDialogue(pickHatDialogue);
+
+        yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
         //this is when the player gets to pick the hat for the day
 
         //fire an event to show the hat selection UI, which we will need to create
@@ -200,6 +231,45 @@ public class DayCycleManager : MonoBehaviour
         //wait a few seconds
         yield return new WaitForSeconds(1f);
 
+
+        //we want to play a random evening dialogue from the list of evening dialogues for days 1, 2, and 3
+        if (eveningDialogueDayVariations != null && eveningDialogueDayVariations.Length > 0)
+        {
+            DialogueUIBehavior.instance.ShowDialogue(eveningDialogueDayVariations[Random.Range(0, eveningDialogueDayVariations.Length)]);
+        }
+        else
+        {
+            Debug.LogWarning("No evening dialogue variations are assigned on DayCycleManager.");
+        }
+
+
+        yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+
+        //play the dialogue for the player returning home after exploring, which we will need to create
+        DialogueUIBehavior.instance.ShowDialogue(playerReturnsHomeDialogue);
+
+
+        yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+
+        //if the player found all the collectibles for the day, we can play a special dialogue for that, which we will need to create
+        if (QuestManager.HasCollectedAllQuestItems)
+        {
+            //play the dialogue for finding all the collectibles
+            DialogueUIBehavior.instance.ShowDialogue(grandpaCommentForAllCollectiblesVariations[Random.Range(0, grandpaCommentForAllCollectiblesVariations.Length)]);
+            yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+
+        }
+        else if (!QuestManager.HasCollectedAllQuestItems)
+        {
+            //play the dialogue for finding some of the collectibles
+            DialogueUIBehavior.instance.ShowDialogue(grandpaCommentForSomeCollectiblesVariations[Random.Range(0, grandpaCommentForSomeCollectiblesVariations.Length)]);
+
+            yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+        }
+
+
         //then we can show the end of day dialogue, which we will need to create
         DialogueUIBehavior.instance.ShowDialogue(endDayDialogue);
 
@@ -221,15 +291,49 @@ public class DayCycleManager : MonoBehaviour
 
         
     }
-
     public IEnumerator WeekendDay()
     {
         //show the weekend house scene, which we will need to create
         OnDayPhaseWantsToShowHouseSceneNightTime?.Invoke();
 
+        yield return new WaitForSeconds(1f);
         //play the weekend dialogue, which we will need to create
         DialogueUIBehavior.instance.ShowDialogue(weekendDayDialogue);
+        yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
 
+
+        //if the player grabbed 80 percent or more of the collectibles for the week, we want to play a special dialogue for that, which we will need to create
+        if (QuestManager.GetWeeklyQuestCompletionPercentage() >= 0.85f)
+        {
+            Debug.Log("Player collected 80% or more of the collectibles for the week, playing special dialogue.");
+
+            //play a random dialogue from the end of week dialogue for 85 percent collected variations
+            if (endOfWeekDialogueFor85PercentCollectedVariations != null && endOfWeekDialogueFor85PercentCollectedVariations.Length > 0)
+            {
+                DialogueUIBehavior.instance.ShowDialogue(endOfWeekDialogueFor85PercentCollectedVariations[Random.Range(0, endOfWeekDialogueFor85PercentCollectedVariations.Length)]);
+                yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+            }
+            else            
+            {
+                Debug.LogWarning("No end of week dialogue for 85 percent collected variations are assigned on DayCycleManager.");
+            }
+        }
+        //else if the player grabbed less than 85 percent of the collectibles
+        else if (QuestManager.GetWeeklyQuestCompletionPercentage() < 0.85f)
+        {
+            Debug.Log("Player collected less than 85% of the collectibles for the week, playing different dialogue.");
+            if (endOfWeekDialogueForLessThan85PercentCollectedVariations != null && endOfWeekDialogueForLessThan85PercentCollectedVariations.Length > 0)
+            {
+                DialogueUIBehavior.instance.ShowDialogue(endOfWeekDialogueForLessThan85PercentCollectedVariations[Random.Range(0, endOfWeekDialogueForLessThan85PercentCollectedVariations.Length)]);
+                yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
+            }
+            else
+            {
+                Debug.LogWarning("No end of week dialogue for less than 85 percent collected variations are assigned on DayCycleManager.");
+            }
+        }
+
+        
         //wait until the dialogue is done
         yield return new WaitUntil(() => !DialogueUIBehavior.IsOpen);
         OnDayPhaseWantsToHideHouseSceneNightTime?.Invoke();
@@ -237,8 +341,6 @@ public class DayCycleManager : MonoBehaviour
         //then show the rewards screen, which we will need to create
         OnDayPhaseWantsToShowRewardsScreen?.Invoke();
 
-
-        //yield return StartCoroutine(StartDay());
     
         //wait until the rewards screen is done showing
         yield return new WaitUntil(() => !HUDBehavior.IsRewardsScreenActive);
@@ -249,6 +351,9 @@ public class DayCycleManager : MonoBehaviour
 
         //fire an event to tel the player to reset their points back to 0
         OnWeekReset?.Invoke();
+
+        //reset the weekly quest progress
+        QuestManager.ResetWeeklyQuestProgress();
 
         //start the morning phase again
         yield return StartCoroutine(StartDay());

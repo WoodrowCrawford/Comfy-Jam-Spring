@@ -4,6 +4,11 @@ using System.Collections.Generic;
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance;
+    public static bool HasCollectedAllQuestItems;
+
+    private int weeklyCollectedTotal = 0;
+    private int weeklyRequiredTotal = 0;
+
     [SerializeField] QuestData questData;
 
     public List<ItemData> currentRequiredItems = new List<ItemData>();
@@ -32,8 +37,17 @@ public class QuestManager : MonoBehaviour
 
     public void GenerateDailyQuest()
     {
+        HasCollectedAllQuestItems = false;
         currentRequiredItems.Clear();
         questProgress.Clear();
+
+        // Add today's required items to weekly total
+        foreach (var item in questData.possibleItems)
+        {
+            // Only add if this item is selected for today's quest
+            if (!questProgress.ContainsKey(item)) continue;
+            weeklyRequiredTotal += questProgress[item].y;
+        }
 
         List<ItemData> pool = new List<ItemData>(questData.possibleItems);
 
@@ -64,10 +78,81 @@ public class QuestManager : MonoBehaviour
             {
                 progress.x++;
                 questProgress[pickedData] = progress;
+                weeklyCollectedTotal++;
+                HasCollectedAllQuestItems = AreAllQuestItemsCollected();
                 Debug.Log($"{pickedData.ItemName} Progress: {progress.x}/{progress.y}");
                 OnQuestUpdated?.Invoke();
             }
         }
+    }
+
+    public static float GetWeeklyQuestCompletionPercentage()
+    {
+        if (Instance == null || Instance.weeklyRequiredTotal == 0) return 0f;
+        return (float)Instance.weeklyCollectedTotal / Instance.weeklyRequiredTotal;
+    }
+
+    public static void ResetWeeklyQuestProgress()
+    {
+        if (Instance == null) return;
+        Instance.weeklyCollectedTotal = 0;
+        Instance.weeklyRequiredTotal = 0;
+    }
+
+    private bool AreAllQuestItemsCollected()
+    {
+        if (questProgress.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (var progress in questProgress.Values)
+        {
+            if (progress.x < progress.y)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public float GetDailyQuestCompletionPercentage()
+    {
+        if (questProgress.Count == 0)
+        {
+            return 0f;
+        }
+
+        float totalCollected = 0f;
+        float totalRequired = 0f;
+
+        foreach (var progress in questProgress.Values)
+        {
+            totalCollected += progress.x;
+            totalRequired += progress.y;
+        }
+
+        if (totalRequired <= 0f)
+        {
+            return 0f;
+        }
+
+        return totalCollected / totalRequired;
+    }
+
+    public void ResetDailyQuestProgress()
+    {
+        List<ItemData> items = new List<ItemData>(questProgress.Keys);
+
+        foreach (ItemData item in items)
+        {
+            Vector2Int progress = questProgress[item];
+            questProgress[item] = new Vector2Int(0, progress.y);
+        }
+
+        HasCollectedAllQuestItems = false;
+        OnQuestUpdated?.Invoke();
     }
 
     public List<QuestItemStatus> GetQuestStatus()

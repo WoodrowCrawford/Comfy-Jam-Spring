@@ -82,6 +82,8 @@ public class DialogueUIBehavior : MonoBehaviour
             return;
         }
 
+        //if the dialogue is already playing then wait unil it is finished before showing the new dialogue
+
         DialogueResponseEvents matchingResponseEvents = GetResponseEvents(dialogueObject);
 
         if (matchingResponseEvents != null)

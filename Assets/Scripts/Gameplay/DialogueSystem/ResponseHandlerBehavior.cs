@@ -66,6 +66,7 @@ public class ResponseHandlerBehavior : MonoBehaviour
 
         if(response.DialogueObject)
         {
+            _dialogueUI.CloseDialogueBox();
             _dialogueUI.ShowDialogue(response.DialogueObject);
         }
         else

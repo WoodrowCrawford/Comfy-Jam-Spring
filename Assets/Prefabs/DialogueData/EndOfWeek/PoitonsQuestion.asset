@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
+  m_Name: PoitonsQuestion
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
+  _dialogue:
+  - text: What potions are you making with the ingredients I found?
+    speakerSpriteA: {fileID: -6860777484881252876, guid: 13f08dabed3a64094aa53375dbb6cfc6, type: 3}
+    speakerSpriteB: {fileID: 8331951880562680293, guid: ba7b068bd9676499590fcd9755529306, type: 3}
+  - text: What potions are you making with the ingredients I found?
+    speakerSpriteA: {fileID: -6860777484881252876, guid: 13f08dabed3a64094aa53375dbb6cfc6, type: 3}
+    speakerSpriteB: {fileID: 8331951880562680293, guid: ba7b068bd9676499590fcd9755529306, type: 3}
+  - text: "With the herbs you gathered I\u2019ll be making a fresh poultice, excellent
+      for sunburn!"
+    speakerSpriteA: {fileID: 762295401419478983, guid: 8d1bb7c4be1714eb1aebaccc276f9104, type: 3}
+    speakerSpriteB: {fileID: 403430259015886451, guid: cda14d703f44b4000971895e2ae22b6b, type: 3}
+  - text: That or a vial of distilled sunlight made from orange lady bugs. Great
+      for the joints.
+    speakerSpriteA: {fileID: 762295401419478983, guid: 8d1bb7c4be1714eb1aebaccc276f9104, type: 3}
+    speakerSpriteB: {fileID: 403430259015886451, guid: cda14d703f44b4000971895e2ae22b6b, type: 3}
+  _responses: []

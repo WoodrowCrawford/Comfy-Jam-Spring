@@ -10,12 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
-  m_Name: EndDayDialogue
+  m_Name: PlayerDidNotFindEverything1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
   _dialogue:
-  - text: Thank you again, {playerName}. Supper is on the table. I'll join you in
-      a moment, and I'll tell you another story about your mother's potion-making
-      mishaps!
+  - text: Hm, did you have a hard time finding some of these? You'll get to know
+      the forest over time.
     speakerSpriteA: {fileID: 762295401419478983, guid: 8d1bb7c4be1714eb1aebaccc276f9104, type: 3}
     speakerSpriteB: {fileID: 403430259015886451, guid: cda14d703f44b4000971895e2ae22b6b, type: 3}
-  _responses: []
+  _responses:
+  - _responseText: Forrest?
+    _dialogueObject: {fileID: 11400000, guid: 5a9ba4c298b9c42cf8faf2c097ad5477, type: 2}
+  - _responseText: Found cool things!
+    _dialogueObject: {fileID: 11400000, guid: 49500b4ea244342d88c274ee3e4dec46, type: 2}
+  - _responseText: Mama?
+    _dialogueObject: {fileID: 11400000, guid: 6729b518512fd48738c0064fe04110f7, type: 2}

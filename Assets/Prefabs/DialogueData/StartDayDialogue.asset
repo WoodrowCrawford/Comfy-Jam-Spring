@@ -13,16 +13,14 @@ MonoBehaviour:
   m_Name: StartDayDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
   _dialogue:
-  - text: This is day {currentDay}
-    speakerSpriteA: {fileID: 8377351832699850380, guid: 90a3d527fa4bf48e7a3c1ff9da2349b4, type: 3}
+  - text: Ah, another fine spring morning. Up you get!
+    speakerSpriteA: {fileID: 762295401419478983, guid: 8d1bb7c4be1714eb1aebaccc276f9104, type: 3}
     speakerSpriteB: {fileID: 6534564831102106899, guid: 524fa7d7012c34fd190c9eeb15971b1d, type: 3}
-  - text: Now get out there and find me some items!
+  - text: Zzz... 5 more minutes...
     speakerSpriteA: {fileID: -6580467855138769401, guid: f7224a65a95a6407ba8ad346ad2e44fc, type: 3}
-    speakerSpriteB: {fileID: 6534564831102106899, guid: 524fa7d7012c34fd190c9eeb15971b1d, type: 3}
-  _responses:
-  - _responseText: yes
-    _dialogueObject: {fileID: 0}
-  - _responseText: no
-    _dialogueObject: {fileID: 0}
-  - _responseText: why
-    _dialogueObject: {fileID: 0}
+    speakerSpriteB: {fileID: 8331951880562680293, guid: ba7b068bd9676499590fcd9755529306, type: 3}
+  - text: Here's today's list. Take your time during the search; there's nothing
+      like a walk in the great forest of Zirrala. I'll see you at supper.
+    speakerSpriteA: {fileID: -6580467855138769401, guid: f7224a65a95a6407ba8ad346ad2e44fc, type: 3}
+    speakerSpriteB: {fileID: 8331951880562680293, guid: ba7b068bd9676499590fcd9755529306, type: 3}
+  _responses: []

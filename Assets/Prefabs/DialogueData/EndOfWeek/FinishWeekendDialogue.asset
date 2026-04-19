@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3667a4296b0115b40ad167e804a58408, type: 3}
-  m_Name: EndDayDialogue
+  m_Name: FinishWeekendDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObjectBehavior
   _dialogue:
-  - text: Thank you again, {playerName}. Supper is on the table. I'll join you in
-      a moment, and I'll tell you another story about your mother's potion-making
-      mishaps!
+  - text: Now how about we make some strawberry beetle pancakes?
     speakerSpriteA: {fileID: 762295401419478983, guid: 8d1bb7c4be1714eb1aebaccc276f9104, type: 3}
     speakerSpriteB: {fileID: 403430259015886451, guid: cda14d703f44b4000971895e2ae22b6b, type: 3}
   _responses: []
